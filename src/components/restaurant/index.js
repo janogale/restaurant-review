@@ -6,7 +6,7 @@ import ListSkeleton from "./ListSkeleton";
 // data fetcher
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function index() {
+export default function Index() {
   const { data, error } = useSWR("/api/restuarants", fetcher);
 
   if (error) return <div>failed to load</div>;

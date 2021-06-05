@@ -1,4 +1,5 @@
-import firebase from "../../../../lib/firebase";
+// eslint-disable-next-line import/no-unresolved
+import firebase from "@/lib/firebase";
 
 export default async (req, res) => {
   const { password, email } = req.body;

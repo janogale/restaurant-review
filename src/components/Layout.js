@@ -1,15 +1,15 @@
-import { Text } from "@chakra-ui/react";
 import React from "react";
 import Container from "./Container";
 import Header from "./Header";
 import Main from "./Main";
+import RestaurantList from "./restaurant/List";
 
 export default function Layout() {
   return (
     <Container>
       <Header />
       <Main>
-        <Text>Bismilaah</Text>
+        <RestaurantList />
       </Main>
     </Container>
   );

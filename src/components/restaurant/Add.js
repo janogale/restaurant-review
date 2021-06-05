@@ -1,12 +1,42 @@
 import React from "react";
 
 import { MdAdd } from "react-icons/md";
-import { Button } from "@chakra-ui/react";
+import {
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 
-export default function AddRestuarant() {
+import RestaurantAddForm from "./AddForm";
+
+export default function AddFormModal() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Button leftIcon={<MdAdd />} colorScheme="green" variant="outline">
-      Add Restaurant
-    </Button>
+    <>
+      <Button
+        onClick={onOpen}
+        leftIcon={<MdAdd />}
+        colorScheme="green"
+        variant="outline"
+      >
+        Add Restaurant
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add Restaurant</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <RestaurantAddForm onClose={onClose} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

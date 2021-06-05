@@ -5,12 +5,12 @@ import { MdRateReview } from "react-icons/md";
 export default function Layout() {
   return (
     <HStack justify="space-between" bg="gray.200" width="100%" px={8} py={3}>
-      <Flex>
+      <Flex align="center">
         <Icon as={MdRateReview} w={8} h={8} color="green.600" />
         <Link
           href="/"
           ml={4}
-          fontSize="3vh"
+          fontSize="lg"
           fontWeight="bold"
           bgGradient="linear(to-l, #7928CA, #FF0080)"
           bgClip="text"

@@ -11,13 +11,12 @@ import {
   FormLabel,
   FormHelperText,
   Textarea,
-  Spinner,
 } from "@chakra-ui/react";
 
 import Input from "../shared/Input";
 
 export default function EmployeeForm({ onClose }) {
-  const [loading, setLoading] = React.useState(false);
+  //   const [loading, setLoading] = React.useState(false);
 
   // destructure employee object
   // if no value is passed set empty string as default
@@ -25,7 +24,6 @@ export default function EmployeeForm({ onClose }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -105,7 +103,7 @@ export default function EmployeeForm({ onClose }) {
         <Flex justify="space-around" my={4}>
           <Button onClick={onClose}>Cancel</Button>
           <Button type="submit" variant="outline" colorScheme="green">
-            {loading ? <Spinner size="md" color="red.400" /> : "Create"}
+            Create
           </Button>
         </Flex>
       </chakra.form>

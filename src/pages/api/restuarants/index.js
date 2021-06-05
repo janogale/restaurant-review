@@ -1,5 +1,13 @@
 // import controllers from root controllers folder.
-import { createRestaurant, getRestaurants } from "controllers";
+
+// eslint-disable-next-line import/no-unresolved
+import { createRestaurant, getRestaurants } from "controllers/";
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};
 
 export default (req, res) => {
   // get http method
@@ -11,6 +19,7 @@ export default (req, res) => {
       break;
     case "POST":
       createRestaurant(req, res);
+
       break;
     default:
       res.setHeader("Allow", ["GET", "POST"]);

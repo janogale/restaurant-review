@@ -1,0 +1,4 @@
+{
+    "extends": "@ijsto",
+    "rules": {     "prettier/prettier": ["error", { "endOfLine": "auto" }], "sort-keys": "off"   }
+  }

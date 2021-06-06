@@ -1,5 +1,5 @@
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import {
   chakra,
@@ -10,67 +10,69 @@ import {
   FormControl,
   FormLabel,
   FormHelperText,
+  Spinner,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 
 import Input from "../shared/Input";
 
-export default function EmployeeForm({ onClose }) {
-  //   const [loading, setLoading] = React.useState(false);
+export default function RestaurantForm({ onClose }) {
+  const [loading, setLoading] = React.useState(false);
 
-  // destructure employee object
-  // if no value is passed set empty string as default
+  const toast = useToast();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  //   // create new employee
-  //   async function createEmployee(data) {
-  //     setLoading(true);
-  //     const token = state.token || window.sessionStorage.getItem("admintoken");
-  //     try {
-  //       const response = await axios({
-  //         method: "post",
-  //         url: "http://localhost:5000/api/admin",
-  //         data: {
-  //           ...data,
-  //         },
-  //         headers: { "x-access-token": token },
-  //       });
+  // create new employee
+  async function createRestaurant(data) {
+    setLoading(true);
+    // const token = state.token || window.sessionStorage.getItem("userToken");
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "/api/restuarants",
+        data: {
+          ...data,
+          createdAt: new Date().toISOString(),
+        },
+        // headers: { "x-access-token": token },
+      });
 
-  //       console.log(response);
-  //       reset();
-  //       toast({
-  //         title: "Employee Created.",
-  //         description: "One Account created successfully",
-  //         status: "success",
-  //         duration: 2000,
-  //         isClosable: true,
-  //         onCloseComplete: () => {
-  //           router.reload();
-  //         },
-  //       });
-  //       setLoading(false);
-  //     } catch (error) {
-  //       toast({
-  //         title: "Failed to Create",
-  //         description: "Sorry something went wrong, please try again",
-  //         status: "info",
-  //         duration: 2000,
-  //         isClosable: true,
-  //       });
-  //       console.log(error);
-  //     }
+      reset();
+      toast({
+        title: "Restaurant Created.",
+        description: "successfully created new Restaurant",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+        onCloseComplete: () => {
+          onClose();
+        },
+      });
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Failed to Create",
+        description: "Sorry something went wrong, please try again",
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+      });
+    }
 
-  //     reset();
-  //   }
+    reset();
+  }
 
   const onSubmit = (data) => {
-    // update or create by checking isUpdate variable
-    console.log(data);
+    if (data) {
+      createRestaurant(data);
+    }
   };
 
   return (
@@ -102,8 +104,13 @@ export default function EmployeeForm({ onClose }) {
         </FormControl>
         <Flex justify="space-around" my={4}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button type="submit" variant="outline" colorScheme="green">
-            Create
+          <Button
+            type="submit"
+            variant="outline"
+            colorScheme="green"
+            disabled={loading}
+          >
+            {loading ? <Spinner color="red.400" /> : "Create"}
           </Button>
         </Flex>
       </chakra.form>

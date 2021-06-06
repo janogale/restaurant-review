@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/layout";
 import React from "react";
 import useSWR from "swr";
 import RestaurantList from "./List";
@@ -7,9 +8,12 @@ import ListSkeleton from "./ListSkeleton";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Index() {
-  const { data, error } = useSWR("/api/restuarants", fetcher);
+  const { data, error } = useSWR("/api/restuarants", fetcher, {
+    refreshInterval: 1000,
+  });
 
-  if (error) return <div>failed to load</div>;
+  if (error)
+    return <Flex justify="center">failed to load data, Please try again!</Flex>;
   if (!data)
     return (
       <div>
@@ -19,7 +23,7 @@ export default function Index() {
 
   return (
     <>
-      <RestaurantList data={data} />
+      <RestaurantList restuarants={data} />
     </>
   );
 }

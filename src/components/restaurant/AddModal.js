@@ -16,9 +16,13 @@ import RestaurantAddForm from "./AddForm";
 
 export default function AddFormModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const finalRef = React.useRef();
+
   return (
     <>
       <Button
+        ref={finalRef}
         onClick={onOpen}
         leftIcon={<MdAdd />}
         colorScheme="green"
@@ -27,7 +31,7 @@ export default function AddFormModal() {
         Add Restaurant
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} finalFocusRef={finalRef}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Add Restaurant</ModalHeader>

@@ -13,9 +13,9 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-import AddRestuarant from "./Add";
+import AddRestuarant from "./AddModal";
 
-export default function RestaurantList({ data = {} }) {
+export default function RestaurantList({ restuarants = {} }) {
   return (
     <VStack align="start">
       <Flex width="100%" mb={4} justify="space-between" align="center" px={3}>
@@ -37,15 +37,15 @@ export default function RestaurantList({ data = {} }) {
             </Tr>
           </Thead>
           <Tbody>
-            {data &&
-              data.map((res) => (
-                <Tr key={res.id}>
+            {restuarants &&
+              restuarants.map((res, index) => (
+                <Tr key={index}>
                   <Td>
                     <Link href="/">{res.name}</Link>
                   </Td>
-                  <Td>millimetres (mm)</Td>
-                  <Td>25.4</Td>
-                  <Td isNumeric>25.4</Td>
+                  <Td>{res.description}</Td>
+                  <Td>{res.contact}</Td>
+                  <Td isNumeric>{res.contact}</Td>
                 </Tr>
               ))}
           </Tbody>

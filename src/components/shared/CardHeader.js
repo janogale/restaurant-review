@@ -8,7 +8,6 @@ export const CardHeader = (props) => {
       justify="space-between"
       px="6"
       py="4"
-      bg="green.100"
       borderBottomWidth="1px"
     >
       <Heading as="h2" fontSize="lg">

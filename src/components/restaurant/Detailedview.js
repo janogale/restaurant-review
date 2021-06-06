@@ -32,7 +32,7 @@ export default function DetailedView({ restuarant = {} }) {
   return (
     <VStack align="start">
       <Flex width="100%" mb={4} justify="space-between" align="center" px={3}>
-        <Card maxW="3xl" mx="auto" minW="80%">
+        <Card maxW="3xl" mx="auto" minW="90%" boxShadow="xl">
           <CardHeader
             title="Restaurant Details"
             action={<Actions id={restuarant.id} />}

@@ -17,7 +17,7 @@ export default (req, res) => {
     case "GET":
       getRestaurant(req, res);
       break;
-    case "delete":
+    case "DELETE":
       deleteRestaurant(req, res);
 
       break;

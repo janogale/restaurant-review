@@ -11,16 +11,14 @@ export default async function getRestaurant(req, res) {
   }
 
   try {
-    const resDoc = db.collection("restaurants").doc(resId);
+    const response = await db.collection("restaurants").doc(resId).delete();
 
-    const doc = await resDoc.get();
-
-    if (doc.exists) {
+    if (response) {
       // return doc with id
-      return res.status(200).json({ ...doc.data(), id: doc.id });
+      return res.status(200).json(response);
     }
     return res.status(404).json({ error: "No data found" });
   } catch (error) {
-    return res.status(401).json(error);
+    return res.status(401).json({ error });
   }
 }

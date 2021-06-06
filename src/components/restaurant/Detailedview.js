@@ -12,7 +12,6 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 
 import React from "react";
-import Skeleton from "./DetailsSkeleton";
 import { Card } from "../shared/Card";
 import { Property } from "../shared/Property";
 import { CardHeader } from "../shared/CardHeader";
@@ -24,11 +23,11 @@ export default function DetailedView({ restuarant = {} }) {
         <Card maxW="3xl" mx="auto" minW="80%">
           <CardHeader title="Restaurant Details" action={<Actions />} />
           <Box>
-            <Property label="Name" value={`${"Capital Lounge"}`} />
-            <Property label="Description" value={`${"Best Dining place"}`} />
+            <Property label="Name" value={`${restuarant.name}`} />
+            <Property label="Description" value={`${restuarant.description}`} />
             <Property
-              label="created at"
-              value={new Date().toLocaleDateString("en-US")}
+              label="Created at"
+              value={new Date(restuarant.createdAt).toLocaleDateString("en-US")}
             />
             <Property label="Rating" value={4.5} />
           </Box>

@@ -1,4 +1,3 @@
-import { uid } from "uid";
 import admin from "../lib/firebase-admin";
 
 const db = admin.firestore();
@@ -14,7 +13,6 @@ export default async function createRestaurant(req, res) {
       description,
       contact,
       createdAt,
-      id: uid(),
     });
 
     return res

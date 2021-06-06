@@ -34,7 +34,7 @@ export default function RestaurantForm({ onClose }) {
     setLoading(true);
     // const token = state.token || window.sessionStorage.getItem("userToken");
     try {
-      const response = await axios({
+      await axios({
         method: "POST",
         url: "/api/restuarants",
         data: {
@@ -86,6 +86,8 @@ export default function RestaurantForm({ onClose }) {
           />
 
           <Input {...register("contact")} name="contact" />
+          <Input {...register("address")} name="address" />
+          <Input {...register("city")} name="city" />
         </SimpleGrid>
         <FormControl id="description">
           <FormLabel>Description</FormLabel>

@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/layout";
 import React from "react";
 import useSWR from "swr";
-import RestaurantList from "./List";
+import RestaurantList from "./RestuarantList";
 import ListSkeleton from "./ListSkeleton";
 
 // data fetcher

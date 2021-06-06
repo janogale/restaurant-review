@@ -2,15 +2,12 @@ import React from "react";
 import Container from "./Container";
 import Header from "./Header";
 import Main from "./Main";
-import RestaurantList from "./restaurant";
 
-export default function Layout() {
+export default function Layout({ children }) {
   return (
     <Container>
       <Header />
-      <Main>
-        <RestaurantList />
-      </Main>
+      <Main>{children}</Main>
     </Container>
   );
 }

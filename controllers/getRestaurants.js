@@ -7,8 +7,8 @@ export default async function createRestaurant(req, res) {
     const colRef = db.collection("restaurants");
     const snapShot = await colRef.get();
 
-    // return data
-    const data = snapShot.docs.map((doc) => doc.data());
+    // return data with ID
+    const data = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     return res.status(200).json(data);
   } catch (error) {
     return res.status(401).json(error);

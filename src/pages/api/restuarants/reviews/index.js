@@ -1,7 +1,7 @@
 // import controllers from root controllers folder.
 
 // eslint-disable-next-line import/no-unresolved
-import { createReview } from "controllers/";
+import { createReview, deleteReview } from "controllers/";
 
 export const config = {
   api: {
@@ -18,7 +18,7 @@ export default (req, res) => {
       createReview(req, res);
       break;
     case "DELETE":
-      createReview(req, res);
+      deleteReview(req, res);
       break;
     default:
       res.setHeader("Allow", ["GET", "POST"]);

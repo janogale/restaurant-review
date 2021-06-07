@@ -2,7 +2,6 @@
 
 // eslint-disable-next-line import/no-unresolved
 import {
-  createReview,
   deleteReview,
   updateReview,
   getReviews,
@@ -22,9 +21,6 @@ export default (req, res) => {
   switch (method) {
     case "GET":
       getReviews(req, res);
-      break;
-    case "POST":
-      createReview(req, res);
       break;
     case "DELETE":
       deleteReview(req, res);

@@ -21,6 +21,7 @@ import {
   useDisclosure,
   useToast,
   Heading,
+  Divider,
 } from "@chakra-ui/react";
 
 import { BsThreeDots } from "react-icons/bs";
@@ -28,7 +29,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { Card } from "../shared/Card";
 import { Property } from "../shared/Property";
 import { CardHeader } from "../shared/CardHeader";
-import ReviewCard from "./ReviewCard";
+import ReviewCardContainer from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
 
 export default function DetailedView({ restuarant = {} }) {
@@ -57,7 +58,8 @@ export default function DetailedView({ restuarant = {} }) {
       </Flex>
       {/* restaurant review */}
       <ReviewForm />
-      <ReviewCard />
+      <Divider my={3} />
+      <ReviewCardContainer restuarantId={restuarant.id} />
     </VStack>
   );
 }

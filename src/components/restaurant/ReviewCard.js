@@ -1,18 +1,39 @@
-import React, { useRouter } from "next/router";
-
+import useSWR from "swr";
 import { Box, Flex, Icon, HStack, VStack, Text } from "@chakra-ui/react";
 
 import { BiBuildings } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 
-export default function ReviewCard({ review = {} }) {
-  const router = useRouter();
+// data fetcher
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
+export default function ReviewCardContainer({ restuarantId }) {
+  const { data, error } = useSWR(
+    `/api/restuarants/reviews/${restuarantId}`,
+    fetcher
+  );
+
+  if (error) {
+    return <Flex justify="center">failed to load data, Please try again!</Flex>;
+  }
+
+  const ReviewCards = data
+    ? data.map((review) => (
+        <Box key={review.id} w="100%">
+          <ReviewCard review={review} restuarantId={restuarantId} />
+        </Box>
+      ))
+    : null;
+
+  return ReviewCards;
+}
+
+function ReviewCard({ review = {} }) {
   const {
     fullname = "Mukhtar Mahamed",
-    rating = 4,
-    comment = "this is amazing restaurant",
+    rating = 0,
+    comment = "",
     createdAt = "1 Jun 2021 18:53:18",
   } = review;
 
@@ -31,7 +52,6 @@ export default function ReviewCard({ review = {} }) {
         bg: "gray.100",
         cursor: "pointer",
       }}
-      onClick={() => router.push(`/review/${review.id}`)}
     >
       <Box alignSelf="start">
         <Icon as={BiBuildings} w={12} h={12} color="green.600" />

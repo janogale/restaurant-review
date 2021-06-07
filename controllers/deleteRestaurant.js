@@ -3,15 +3,18 @@ import admin from "../lib/firebase-admin";
 const db = admin.firestore();
 
 export default async function getRestaurant(req, res) {
-  const { resId } = req.query;
+  const { restuarantId } = req.query;
 
   // if there is no id reject call
-  if (!resId) {
+  if (!restuarantId) {
     return res.status(400).json({ error: "resturant id is required" });
   }
 
   try {
-    const response = await db.collection("restaurants").doc(resId).delete();
+    const response = await db
+      .collection("restaurants")
+      .doc(restuarantId)
+      .delete();
 
     if (response) {
       // return doc with id

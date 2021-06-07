@@ -44,7 +44,6 @@ export const LoginFormAdmin = (props) => {
         status: "success",
         duration: 1000,
       });
-      await delay(1000);
       setLoading(false);
 
       // store admin token into state

@@ -29,6 +29,7 @@ import { Card } from "../shared/Card";
 import { Property } from "../shared/Property";
 import { CardHeader } from "../shared/CardHeader";
 import ReviewCard from "./ReviewCard";
+import ReviewForm from "./ReviewForm";
 
 export default function DetailedView({ restuarant = {} }) {
   return (
@@ -55,6 +56,7 @@ export default function DetailedView({ restuarant = {} }) {
         </Heading>
       </Flex>
       {/* restaurant review */}
+      <ReviewForm />
       <ReviewCard />
     </VStack>
   );

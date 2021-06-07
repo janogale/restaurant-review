@@ -4,7 +4,6 @@ import {
   FormControl,
   Input,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
 import { capitalize } from "./utils";

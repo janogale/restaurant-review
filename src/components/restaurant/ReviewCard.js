@@ -52,10 +52,7 @@ export default function ReviewCard({ review = {} }) {
         </Flex>
         <Text>{comment}</Text>
 
-        <Flex justify="space-between" w="100%">
-          <Text>
-            Total Reviews <strong>24</strong>
-          </Text>
+        <Flex justify="flex-end" w="100%">
           <Flex>
             <Icon as={MdDelete} fontSize="md" />
           </Flex>

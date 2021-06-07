@@ -10,7 +10,7 @@ export const CardHeader = (props) => {
       py="4"
       borderBottomWidth="1px"
     >
-      <Heading as="h2" fontSize="lg">
+      <Heading as="h2" fontSize="xl">
         {title}
       </Heading>
       {action}

@@ -11,7 +11,10 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 export default function ReviewCardContainer({ restuarantId }) {
   const { data, error } = useSWR(
     `/api/restuarants/reviews/${restuarantId}`,
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
   );
 
   if (error) {

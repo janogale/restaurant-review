@@ -57,7 +57,7 @@ export default function DetailedView({ restuarant = {} }) {
         </Heading>
       </Flex>
       {/* restaurant review */}
-      <ReviewForm />
+      <ReviewForm restuarantId={restuarant.id} />
       <Divider my={3} />
       <ReviewCardContainer restuarantId={restuarant.id} />
     </VStack>

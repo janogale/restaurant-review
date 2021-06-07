@@ -29,7 +29,7 @@ export default function RestaurantForm({ onClose }) {
     formState: { errors },
   } = useForm();
 
-  // create new employee
+  // create new restuarant
   async function createRestaurant(data) {
     setLoading(true);
     // const token = state.token || window.sessionStorage.getItem("userToken");

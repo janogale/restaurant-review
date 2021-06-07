@@ -1,5 +1,5 @@
 import * as React from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 
 import {
@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-export default function ReviewCard() {
+export default function ReviewCard({ restuarantId }) {
   const [loading, setLoading] = React.useState(false);
 
   const toast = useToast();
@@ -26,38 +26,51 @@ export default function ReviewCard() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  // create new review
+  async function createView(data) {
     setLoading(true);
-
+    // const token = state.token || window.sessionStorage.getItem("userToken");
     try {
-      // show success message
+      await axios({
+        method: "POST",
+        url: "/api/restuarants/reviews",
+        data: {
+          ...data,
+          restuarantId,
+          authorId: "coming soon",
+          rating: 5,
+          author: "Mukhtar Mahamed",
+          createdAt: new Date().toISOString(),
+        },
+        // headers: { "x-access-token": token },
+      });
+
+      reset();
       toast({
-        title: "Login Successfull",
+        title: "Review Created.",
+        description: "successfully created new review",
         status: "success",
-        duration: 1000,
+        duration: 1500,
+        isClosable: true,
       });
       setLoading(false);
-
-      // store admin token into state
-
-      // save token to sessionStorage
-    } catch (err) {
-      console.log(err);
-
-      // show message
+    } catch (error) {
       toast({
-        title: "Login Failed",
-        description: "Username or password is incorrect",
+        title: "Failed to Create Review",
+        description: "Sorry something went wrong, please try again",
         status: "error",
-        duration: 2000,
+        duration: 1500,
+        isClosable: true,
       });
-      setLoading(false);
     }
 
-    // reset form
-
     reset();
+  }
+
+  const onSubmit = (data) => {
+    if (data) {
+      createView(data);
+    }
   };
 
   return (

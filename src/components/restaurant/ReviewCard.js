@@ -1,5 +1,24 @@
+import React from "react";
 import useSWR from "swr";
-import { Box, Flex, Icon, HStack, VStack, Text } from "@chakra-ui/react";
+import { axios } from "axios";
+import {
+  Box,
+  Flex,
+  Icon,
+  HStack,
+  VStack,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  Button,
+  Spinner,
+  ModalCloseButton,
+  useToast,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import { BiBuildings } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -32,7 +51,7 @@ export default function ReviewCardContainer({ restuarantId }) {
   return ReviewCards;
 }
 
-function ReviewCard({ review = {} }) {
+function ReviewCard({ review = {}, restuarantId }) {
   const {
     fullname = "Mukhtar Mahamed",
     rating = 0,
@@ -77,10 +96,82 @@ function ReviewCard({ review = {} }) {
 
         <Flex justify="flex-end" w="100%">
           <Flex>
-            <Icon as={MdDelete} fontSize="md" />
+            <DeleteReviewModal
+              reviewId={review.id}
+              restuarantId={restuarantId}
+            />
           </Flex>
         </Flex>
       </VStack>
     </HStack>
+  );
+}
+
+function DeleteReviewModal({ reviewId, restuarantId }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = React.useState(false);
+
+  const toast = useToast();
+
+  // delete single employee by Id
+  async function deleteReview() {
+    setLoading(true);
+    // const token = state.token || window.sessionStorage.getItem("userToken");
+    try {
+      await axios({
+        method: "DELETE",
+        url: `/api/restuarants/reviews`,
+        data: {
+          reviewId,
+          restuarantId,
+        },
+        // headers: { "x-access-token": token },
+      });
+
+      toast({
+        title: "Review Deleted.",
+        description: "successfully Delete Restaurant",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+        onCloseComplete: () => {
+          onClose();
+        },
+      });
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Failed to Delete",
+        description: "Sorry something went wrong, please try again",
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+      });
+    }
+  }
+
+  return (
+    <>
+      <Icon as={MdDelete} onClick={onOpen} fontSize="md" />
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color="red.600">Delete Review ?</ModalHeader>
+          <ModalCloseButton />
+          <ModalFooter>
+            <Button colorScheme="green" mr={3} onClick={onClose}>
+              Cannel
+            </Button>
+            <Button
+              variant="ghost"
+              colorScheme="red"
+              onClick={() => deleteReview()}
+            >
+              {loading ? <Spinner /> : "Delete"}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

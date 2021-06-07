@@ -5,6 +5,7 @@ import deleteRestaurant from "./deleteRestaurant";
 import createReview from "./createReview";
 import deleteReview from "./deleteReview";
 import updateReview from "./updateReview";
+import getReviews from "./getReviews";
 
 // these controllers are used in /src/pages/api folder
 export {
@@ -15,4 +16,5 @@ export {
   createReview,
   deleteReview,
   updateReview,
+  getReviews,
 };

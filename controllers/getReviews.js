@@ -2,9 +2,13 @@ import admin from "../lib/firebase-admin";
 
 const db = admin.firestore();
 
-export default async function getRestaurants(req, res) {
+export default async function getReviews(req, res) {
+  const { restuarantId } = req.query;
   try {
-    const colRef = db.collection("restaurants");
+    const colRef = db
+      .collection("restaurants")
+      .doc(restuarantId)
+      .collection("reviews");
     const snapShot = await colRef.get();
 
     // return data with ID

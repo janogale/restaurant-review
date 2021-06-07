@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, Text, Divider } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import Layout from "../../components/Layout";
 import Skeleton from "../../components/restaurant/DetailsSkeleton";
@@ -31,11 +31,16 @@ export default function RestuarantDetailedView() {
 
   return (
     <Layout>
-      <Flex>
+      <Flex align="center">
         <Button onClick={() => router.back()} leftIcon={<ChevronLeftIcon />}>
           Back
         </Button>
+        <Text ml={["3rem", "5rem"]} fontWeight="light" fontSize="xl">
+          Restuarant Details
+        </Text>
       </Flex>
+      <Divider />
+      {/* restuarant details */}
       <Detailedview restuarant={data} />
     </Layout>
   );

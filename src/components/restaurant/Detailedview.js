@@ -20,6 +20,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   useToast,
+  Heading,
 } from "@chakra-ui/react";
 
 import { BsThreeDots } from "react-icons/bs";
@@ -27,18 +28,18 @@ import { BsThreeDots } from "react-icons/bs";
 import { Card } from "../shared/Card";
 import { Property } from "../shared/Property";
 import { CardHeader } from "../shared/CardHeader";
+import ReviewCard from "./ReviewCard";
 
 export default function DetailedView({ restuarant = {} }) {
   return (
     <VStack align="start">
-      <Flex width="100%" mb={4} justify="space-between" align="center" px={3}>
-        <Card maxW="3xl" mx="auto" minW="90%" boxShadow="xl">
+      <Flex width="100%" mb={4} justify="space-between" align="center">
+        <Card mx="auto" boxShadow="xl" width="100%">
           <CardHeader
-            title="Restaurant Details"
+            title={`${restuarant.name}`}
             action={<Actions id={restuarant.id} />}
           />
           <Box>
-            <Property label="Name" value={`${restuarant.name}`} />
             <Property label="Description" value={`${restuarant.description}`} />
             <Property
               label="Created at"
@@ -48,6 +49,13 @@ export default function DetailedView({ restuarant = {} }) {
           </Box>
         </Card>
       </Flex>
+      <Flex>
+        <Heading as="h3" my={3} fontSize="lg" fontWeight="normal">
+          Reviews for {restuarant.name}{" "}
+        </Heading>
+      </Flex>
+      {/* restaurant review */}
+      <ReviewCard />
     </VStack>
   );
 }

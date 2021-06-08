@@ -18,10 +18,16 @@ export default async function createRestaurant(req, res) {
   }
 
   try {
-    const colRef = db
-      .collection("restaurants")
-      .doc(restuarantId)
-      .collection("reviews");
+    // get restaurant doc
+    const resDocRef = db.collection("restaurants").doc(restuarantId);
+
+    // increment rating
+    await resDocRef.update({
+      rating: admin.firestore.FieldValue.increment(rating),
+    });
+
+    // store new review
+    const colRef = resDocRef.collection("reviews");
 
     const docRef = await colRef.add({
       comment,

@@ -1,6 +1,6 @@
 import React from "react";
 import useSWR from "swr";
-import { axios } from "axios";
+import axios from "axios";
 import {
   Box,
   Flex,
@@ -120,7 +120,7 @@ function DeleteReviewModal({ reviewId, restuarantId }) {
     try {
       await axios({
         method: "DELETE",
-        url: `/api/restuarants/reviews`,
+        url: `/api/restuarants/reviews/`,
         data: {
           reviewId,
           restuarantId,
@@ -147,6 +147,7 @@ function DeleteReviewModal({ reviewId, restuarantId }) {
         duration: 1500,
         isClosable: true,
       });
+      console.log(error);
     }
   }
 

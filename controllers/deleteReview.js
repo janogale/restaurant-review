@@ -2,9 +2,8 @@ import admin from "../lib/firebase-admin";
 
 const db = admin.firestore();
 
-export default async function getRestaurant(req, res) {
+export default async function deleteReview(req, res) {
   const { restuarantId, reviewId } = req.body;
-  console.log(reviewId, restuarantId);
 
   // if there is no reviewId and restuarantId, reject call
   if (!restuarantId || !reviewId) {

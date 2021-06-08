@@ -17,12 +17,26 @@ export default function RestaurantList({ restuarants = {} }) {
         </Box>
       </Flex>
       <Box width="100%">
-        {restuarants &&
+        {restuarants?.length ? (
           restuarants.map((restuarant) => (
             <Box key={restuarant.id}>
               <RestaurantCard restuarant={restuarant} />
             </Box>
-          ))}
+          ))
+        ) : (
+          <Flex
+            minH="20vh"
+            justify="center"
+            align="center"
+            bg="gray.50"
+            rounded="md"
+            boxShadow="lg"
+          >
+            <Heading fontSize="xl">
+              There are no Restuarants, please add now
+            </Heading>
+          </Flex>
+        )}
       </Box>
     </VStack>
   );

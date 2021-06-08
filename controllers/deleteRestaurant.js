@@ -2,7 +2,7 @@ import admin from "../lib/firebase-admin";
 
 const db = admin.firestore();
 
-export default async function getRestaurant(req, res) {
+export default async function deleRetuarant(req, res) {
   const { restuarantId } = req.query;
 
   // if there is no id reject call
@@ -11,6 +11,18 @@ export default async function getRestaurant(req, res) {
   }
 
   try {
+    // first delete reviews before deleting restuarant
+
+    db.collection("restaurants")
+      .doc(restuarantId)
+      .collection("reviews")
+      .listDocuments()
+      .then((val) => {
+        val.map((doc) => doc.delete());
+      });
+
+    // Delete restuarant then.
+
     const response = await db
       .collection("restaurants")
       .doc(restuarantId)

@@ -18,11 +18,13 @@ import {
   ModalCloseButton,
   useToast,
   useDisclosure,
+  Divider,
 } from "@chakra-ui/react";
 
 import { BiBuildings } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
+import ReplyForm from "./ReplyForm";
 
 // data fetcher
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -71,8 +73,7 @@ function ReviewCard({ review = {}, restuarantId }) {
       py={3}
       rounded="md"
       _hover={{
-        bg: "gray.100",
-        cursor: "pointer",
+        bg: "gray.50",
       }}
     >
       <Box alignSelf="start">
@@ -94,15 +95,17 @@ function ReviewCard({ review = {}, restuarantId }) {
         </Flex>
         <Text>{comment}</Text>
 
-        <Flex justify="flex-end" w="100%">
-          <Flex>
+        <VStack w="100%">
+          <Flex justify="flex-end" w="100%">
             <DeleteReviewModal
               reviewId={review.id}
               rating={review.rating}
               restuarantId={restuarantId}
             />
           </Flex>
-        </Flex>
+          <Divider />
+          <ReplyForm />
+        </VStack>
       </VStack>
     </HStack>
   );

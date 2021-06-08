@@ -31,6 +31,7 @@ import { Property } from "../shared/Property";
 import { CardHeader } from "../shared/CardHeader";
 import ReviewCardContainer from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
+import AverageRating from "./AverageRating";
 
 export default function DetailedView({ restuarant = {} }) {
   return (
@@ -47,7 +48,17 @@ export default function DetailedView({ restuarant = {} }) {
               label="Created at"
               value={new Date(restuarant.createdAt).toLocaleDateString("en-US")}
             />
-            <Property label="Rating" value={4.5} />
+            <Property label="City" value={restuarant.city} />
+            <Property label="Contact" value={restuarant.contact} />
+            <Property
+              label="Rating"
+              value={
+                <AverageRating
+                  ratingCount={restuarant.ratingCount}
+                  totalRating={restuarant.rating}
+                />
+              }
+            />
           </Box>
         </Card>
       </Flex>

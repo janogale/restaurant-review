@@ -100,7 +100,7 @@ export default function ReviewCard({ restuarantId }) {
               count={5}
               onChange={ratingChanged}
               size={32}
-              activeColor="#ffd700"
+              activeColor="#d69e2e"
             />
           </Flex>
           <FormControl id="comment">

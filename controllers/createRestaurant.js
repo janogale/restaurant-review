@@ -3,7 +3,7 @@ import admin from "../lib/firebase-admin";
 const db = admin.firestore();
 
 export default async function createRestaurant(req, res) {
-  const { name, description, contact, createdAt } = req.body;
+  const { name, description, contact, createdAt, city } = req.body;
 
   try {
     const colRef = db.collection("restaurants");
@@ -13,6 +13,7 @@ export default async function createRestaurant(req, res) {
       description,
       contact,
       createdAt,
+      city,
     });
 
     return res

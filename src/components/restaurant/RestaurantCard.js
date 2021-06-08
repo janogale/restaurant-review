@@ -1,9 +1,17 @@
 import React, { useRouter } from "next/router";
 
-import { Box, Flex, Icon, HStack, VStack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  HStack,
+  VStack,
+  Text,
+  Divider,
+} from "@chakra-ui/react";
 
 import { BiBuildings } from "react-icons/bi";
-import { FaStar } from "react-icons/fa";
+import AverageRating from "./AverageRating";
 
 export default function RestaurantCard({ restuarant: res = {} }) {
   const router = useRouter();
@@ -31,24 +39,28 @@ export default function RestaurantCard({ restuarant: res = {} }) {
           {res.name}
         </Text>
         <Text>{res.description}</Text>
+        <Divider />
         <Flex justify="space-between" minW={40}>
           <Text>{res.contact}</Text>
           <Text>{res.contact}</Text>
         </Flex>
+        <Divider />
         <Flex justify="space-between" w="100%">
           {res?.rating && (
             <>
               <Text>
-                Total Reviews <strong>{res.rating}</strong>
+                Total Reviews <strong>{res.ratingCount}</strong>
               </Text>
               <Flex>
-                <Icon as={FaStar} fontSize="sm" />
-                <Icon as={FaStar} fontSize="sm" />
-                <Icon as={FaStar} fontSize="sm" />
-                <Icon as={FaStar} fontSize="sm" />
+                <AverageRating
+                  ratingCount={res.ratingCount}
+                  totalRating={res.rating}
+                />
               </Flex>
             </>
           )}
+
+          {!res?.rating && <Text>No Reviews yet!</Text>}
         </Flex>
       </VStack>
     </HStack>

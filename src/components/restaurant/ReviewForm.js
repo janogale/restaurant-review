@@ -1,10 +1,13 @@
 import * as React from "react";
 import axios from "axios";
+import ReactStars from "react-rating-stars-component";
+
 import { useForm } from "react-hook-form";
 
 import {
   Button,
   chakra,
+  Flex,
   FormControl,
   FormLabel,
   Textarea,
@@ -16,6 +19,7 @@ import {
 
 export default function ReviewCard({ restuarantId }) {
   const [loading, setLoading] = React.useState(false);
+  const [rating, setRating] = React.useState(0);
 
   const toast = useToast();
 
@@ -38,7 +42,7 @@ export default function ReviewCard({ restuarantId }) {
           ...data,
           restuarantId,
           authorId: "coming soon",
-          rating: 5,
+          rating,
           author: "Mukhtar Mahamed",
           createdAt: new Date().toISOString(),
         },
@@ -73,6 +77,10 @@ export default function ReviewCard({ restuarantId }) {
     }
   };
 
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+  };
+
   return (
     <VStack
       w="100%"
@@ -86,6 +94,14 @@ export default function ReviewCard({ restuarantId }) {
     >
       <chakra.form onSubmit={handleSubmit(onSubmit)} w="80%">
         <Stack spacing="3">
+          <Flex>
+            <ReactStars
+              count={5}
+              onChange={ratingChanged}
+              size={32}
+              activeColor="#ffd700"
+            />
+          </Flex>
           <FormControl id="comment">
             <FormLabel>Comment</FormLabel>
             <Textarea

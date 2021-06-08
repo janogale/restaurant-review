@@ -147,7 +147,7 @@ function DeleteReviewModal({ reviewId, restuarantId }) {
         duration: 1500,
         isClosable: true,
       });
-      console.log(error);
+      // console.log(error);
     }
   }
 

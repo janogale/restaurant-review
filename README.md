@@ -1,29 +1,55 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui)
+# Restuarant Review App
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app.
+This is an technical interview coding challenge. submitted by [Mukhtar Mahamed](https://github.com/janogale)
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Theme and ColorMode containers so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
+## Technogogies Used
 
-## Deploy your own
+`Next JS` is used to develop this Full stack App, the `Next JS API` is used to communicate to the `Firebase Database`
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+### **Folder Structrue**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui&project-name=with-chakra-ui&repository-name=with-chakra-ui)
+- **restaurant-review** # this is the root directory
+  - **controllers**
+    - this folder contains route controllers
+  - **middlewares**
+    - this folder contains middleware functions for the API
+  - **lib**
+    - contains firebase config files
+  - **public**
+    - used store public files
+  - **src/commonents**
+    - contains all react components for the Frontend UI
+  - **src/pages/api/restuarants**
+    - contains restuarants API routes
+  - **src/pages/api/restuarants/reviews**
+    - contains reviews API routes
+  - **src/pages/api/account**
+    - contains authentication API routes
 
-## How to use
+### **Frontend Packages/Libraries used**
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+Frontend Library and packages used.
+
+- react js
+- next js
+- chakra-ui # React Component Library for build UIs
+- swr # used to fetch data with caching capabilities
+- axios # used to call APIs for data manipulation
+- react-hook-form # used to manage forms data
+- react-icons # for displaying beautiful icons
+- eslint # to maintain code readibility and follow standard guidances while in development
+- prettier # to format code while in development
+
+### Getting Started
+
+To install the necessary packages for the frontend, go to root folder:
+the App uses port **3000** by default, the App uses `yarn` as package manager.
 
 ```bash
-npx create-next-app --example with-chakra-ui with-chakra-ui-app
-# or
-yarn create next-app --example with-chakra-ui with-chakra-ui-app
+cd restaurant-review
+yarn install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+to start the app, run the following command
 
-## Notes
-
-Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
-
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.js`.
+- Run `yarn dev` go to [localhost:3000](http:localhost:3000)

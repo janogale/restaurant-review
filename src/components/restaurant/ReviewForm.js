@@ -59,6 +59,7 @@ export default function ReviewCard({ restuarantId }) {
       });
       setLoading(false);
     } catch (error) {
+      console.log(error);
       toast({
         title: "Failed to Create Review",
         description: "Sorry something went wrong, please try again",

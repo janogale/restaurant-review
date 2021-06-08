@@ -36,15 +36,19 @@ export default function RestaurantCard({ restuarant: res = {} }) {
           <Text>{res.contact}</Text>
         </Flex>
         <Flex justify="space-between" w="100%">
-          <Text>
-            Total Reviews <strong>24</strong>
-          </Text>
-          <Flex>
-            <Icon as={FaStar} fontSize="sm" />
-            <Icon as={FaStar} fontSize="sm" />
-            <Icon as={FaStar} fontSize="sm" />
-            <Icon as={FaStar} fontSize="sm" />
-          </Flex>
+          {res?.rating && (
+            <>
+              <Text>
+                Total Reviews <strong>{res.rating}</strong>
+              </Text>
+              <Flex>
+                <Icon as={FaStar} fontSize="sm" />
+                <Icon as={FaStar} fontSize="sm" />
+                <Icon as={FaStar} fontSize="sm" />
+                <Icon as={FaStar} fontSize="sm" />
+              </Flex>
+            </>
+          )}
         </Flex>
       </VStack>
     </HStack>

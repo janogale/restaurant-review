@@ -13,7 +13,7 @@ export default async function createRestaurant(req, res) {
   }
 
   // data is empty
-  if (!comment || !rating) {
+  if (!comment) {
     return res.status(400).json({ error: "Please provide comment and rating" });
   }
 
@@ -26,6 +26,10 @@ export default async function createRestaurant(req, res) {
       rating: admin.firestore.FieldValue.increment(rating),
     });
 
+    // increment rating
+    await resDocRef.update({
+      ratingCount: admin.firestore.FieldValue.increment(1),
+    });
     // store new review
     const colRef = resDocRef.collection("reviews");
 

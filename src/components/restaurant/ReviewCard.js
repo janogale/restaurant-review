@@ -98,6 +98,7 @@ function ReviewCard({ review = {}, restuarantId }) {
           <Flex>
             <DeleteReviewModal
               reviewId={review.id}
+              rating={review.rating}
               restuarantId={restuarantId}
             />
           </Flex>
@@ -107,7 +108,7 @@ function ReviewCard({ review = {}, restuarantId }) {
   );
 }
 
-function DeleteReviewModal({ reviewId, restuarantId }) {
+function DeleteReviewModal({ reviewId, restuarantId, rating }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = React.useState(false);
 
@@ -124,6 +125,7 @@ function DeleteReviewModal({ reviewId, restuarantId }) {
         data: {
           reviewId,
           restuarantId,
+          rating,
         },
         // headers: { "x-access-token": token },
       });

@@ -44,7 +44,7 @@ export default function ReviewCard({ restuarantId }) {
           authorId: "coming soon",
           rating,
           author: "Mukhtar Mahamed",
-          createdAt: new Date().toISOString(),
+          createdAt: new Date().toGMTString(),
         },
         // headers: { "x-access-token": token },
       });

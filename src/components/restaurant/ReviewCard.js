@@ -8,6 +8,7 @@ import {
   HStack,
   VStack,
   Text,
+  Avatar,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -21,10 +22,10 @@ import {
   Divider,
 } from "@chakra-ui/react";
 
-import { BiBuildings } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import ReplyForm from "./ReplyForm";
+import Reply from "./ReplyCard";
 
 // data fetcher
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -55,29 +56,28 @@ export default function ReviewCardContainer({ restuarantId }) {
 
 function ReviewCard({ review = {}, restuarantId }) {
   const {
-    fullname = "Mukhtar Mahamed",
+    fullname = "user coming",
     rating = 0,
     comment = "",
-    createdAt = "1 Jun 2021 18:53:18",
+    createdAt = "",
   } = review;
 
   return (
     <HStack
       align="center"
-      boxShadow="md"
       w="100%"
+      boxShadow="md"
+      rounded="md"
       mb={3}
       spacing={2}
-      bg="gray.50"
       px={4}
       py={3}
-      rounded="md"
       _hover={{
         bg: "gray.50",
       }}
     >
       <Box alignSelf="start">
-        <Icon as={BiBuildings} w={12} h={12} color="green.600" />
+        <Avatar name={fullname} src="#" size="sm" />
       </Box>
       <VStack w="100%" align="start">
         <Text fontSize="md" fontWeight="bolder">
@@ -104,7 +104,7 @@ function ReviewCard({ review = {}, restuarantId }) {
             />
           </Flex>
           <Divider />
-          <ReplyForm />
+          {review.reply ? <Reply reply={review?.reply} /> : <ReplyForm />}
         </VStack>
       </VStack>
     </HStack>
@@ -158,7 +158,17 @@ function DeleteReviewModal({ reviewId, restuarantId, rating }) {
 
   return (
     <>
-      <Icon as={MdDelete} onClick={onOpen} fontSize="md" />
+      <Icon
+        title="delete review"
+        as={MdDelete}
+        onClick={onOpen}
+        _hover={{
+          cursor: "pointer",
+        }}
+        w={5}
+        h={5}
+        color="red.600"
+      />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

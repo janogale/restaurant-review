@@ -20,6 +20,7 @@ import {
   useToast,
   useDisclosure,
   Divider,
+  useBoolean,
 } from "@chakra-ui/react";
 
 import { MdDelete } from "react-icons/md";
@@ -55,6 +56,7 @@ export default function ReviewCardContainer({ restuarantId }) {
 }
 
 function ReviewCard({ review = {}, restuarantId }) {
+  const [flag, setFlag] = useBoolean();
   const {
     fullname = "user coming",
     rating = 0,
@@ -66,15 +68,18 @@ function ReviewCard({ review = {}, restuarantId }) {
     <HStack
       align="center"
       w="100%"
-      boxShadow="md"
+      boxShadow="sm"
       rounded="md"
+      bg="gray.50"
       mb={3}
       spacing={2}
       px={4}
       py={3}
       _hover={{
-        bg: "gray.50",
+        boxShadow: "lg",
       }}
+      onMouseEnter={setFlag.on}
+      onMouseLeave={setFlag.off}
     >
       <Box alignSelf="start">
         <Avatar name={fullname} src="#" size="sm" />
@@ -96,12 +101,14 @@ function ReviewCard({ review = {}, restuarantId }) {
         <Text>{comment}</Text>
 
         <VStack w="100%">
-          <Flex justify="flex-end" w="100%">
-            <DeleteReviewModal
-              reviewId={review.id}
-              rating={review.rating}
-              restuarantId={restuarantId}
-            />
+          <Flex w="100%" pos="relative" mb={2}>
+            {flag && (
+              <DeleteReviewModal
+                reviewId={review.id}
+                rating={review.rating}
+                restuarantId={restuarantId}
+              />
+            )}
           </Flex>
           <Divider />
           {review.reply ? <Reply reply={review?.reply} /> : <ReplyForm />}
@@ -160,6 +167,9 @@ function DeleteReviewModal({ reviewId, restuarantId, rating }) {
     <>
       <Icon
         title="delete review"
+        pos="absolute"
+        top="-10"
+        right="5"
         as={MdDelete}
         onClick={onOpen}
         _hover={{

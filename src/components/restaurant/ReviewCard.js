@@ -23,7 +23,7 @@ import {
   useBoolean,
 } from "@chakra-ui/react";
 
-import { MdDelete } from "react-icons/md";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { FaStar } from "react-icons/fa";
 import ReplyForm from "./ReplyForm";
 import Reply from "./ReplyCard";
@@ -111,7 +111,7 @@ function ReviewCard({ review = {}, restuarantId }) {
           </Flex>
           <Divider />
           {review.reply ? (
-            <Reply reply={review?.reply} />
+            <Reply review={review} />
           ) : (
             <ReplyForm reviewId={review.id} restuarantId={restuarantId} />
           )}
@@ -161,8 +161,11 @@ function DeleteReviewModal({ reviewId, restuarantId, rating }) {
         status: "error",
         duration: 1500,
         isClosable: true,
+        onCloseComplete: () => {
+          onClose();
+        },
       });
-      // console.log(error);
+      setLoading(false);
     }
   }
 
@@ -173,7 +176,7 @@ function DeleteReviewModal({ reviewId, restuarantId, rating }) {
         pos="absolute"
         top="-10"
         right="5"
-        as={MdDelete}
+        as={DeleteIcon}
         onClick={onOpen}
         _hover={{
           cursor: "pointer",

@@ -2,8 +2,8 @@ import admin from "../lib/firebase-admin";
 
 const db = admin.firestore();
 
-export default async function addReplyToReview(req, res) {
-  const { reply, createdAt, restuarantId, author, reviewId } = req.body;
+export default async function deleteReply(req, res) {
+  const { restuarantId, reviewId } = req.body;
 
   // if there is no id reject call
   if (!restuarantId || !reviewId) {
@@ -20,14 +20,10 @@ export default async function addReplyToReview(req, res) {
       .collection("reviews")
       .doc(reviewId);
 
-    // add reply
+    // increment rating
     const docRef = await reviewDocRef.update({
-      isReplied: true,
-      reply: {
-        reply,
-        author,
-        createdAt,
-      },
+      isReplied: false,
+      reply: null,
     });
 
     return res.status(201).json(docRef.id);

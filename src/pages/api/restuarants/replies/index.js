@@ -1,7 +1,7 @@
 // import controllers from root controllers folder.
 
 // eslint-disable-next-line import/no-unresolved
-import { addReply } from "controllers/";
+import { addReply, deleteReply } from "controllers/";
 
 export const config = {
   api: {
@@ -17,7 +17,9 @@ export default (req, res) => {
     case "POST":
       addReply(req, res);
       break;
-
+    case "DELETE":
+      deleteReply(req, res);
+      break;
     default:
       res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);

@@ -70,7 +70,6 @@ function ReviewCard({ review = {}, restuarantId }) {
       w="100%"
       boxShadow="sm"
       rounded="md"
-      bg="gray.50"
       mb={3}
       spacing={2}
       px={4}
@@ -105,13 +104,17 @@ function ReviewCard({ review = {}, restuarantId }) {
             {flag && (
               <DeleteReviewModal
                 reviewId={review.id}
-                rating={review.rating}
                 restuarantId={restuarantId}
+                rating={review.rating}
               />
             )}
           </Flex>
           <Divider />
-          {review.reply ? <Reply reply={review?.reply} /> : <ReplyForm />}
+          {review.reply ? (
+            <Reply reply={review?.reply} />
+          ) : (
+            <ReplyForm reviewId={review.id} restuarantId={restuarantId} />
+          )}
         </VStack>
       </VStack>
     </HStack>

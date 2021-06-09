@@ -2,6 +2,7 @@ import * as React from "react";
 import axios from "axios";
 
 import { useForm } from "react-hook-form";
+import { ChatIcon } from "@chakra-ui/icons";
 
 import {
   Button,
@@ -15,9 +16,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-export default function ReplyForm({ restuarantId }) {
+export default function ReplyForm({ restuarantId, reviewId }) {
   const [loading, setLoading] = React.useState(false);
-
+  const [toggle, setToggle] = React.useState(true);
   const toast = useToast();
 
   const {
@@ -27,27 +28,39 @@ export default function ReplyForm({ restuarantId }) {
     formState: { errors },
   } = useForm();
 
+  if (toggle) {
+    return (
+      <Button
+        onClick={() => setToggle(!toggle)}
+        leftIcon={<ChatIcon />}
+        variant="outline"
+      >
+        Reply
+      </Button>
+    );
+  }
+
   // create new review
-  async function createView(data) {
+  async function createReply(data) {
     setLoading(true);
     // const token = state.token || window.sessionStorage.getItem("userToken");
     try {
       await axios({
         method: "POST",
-        url: "/api/restuarants/reviews",
+        url: "/api/restuarants/replies",
         data: {
           ...data,
           restuarantId,
-          author: "Mukhtar Mahamed",
-          createdAt: new Date().toISOString(),
+          author: "coming soon",
+          reviewId,
+          createdAt: `${new Date().toDateString()} ${new Date().toLocaleTimeString()}`,
         },
         // headers: { "x-access-token": token },
       });
 
       reset();
       toast({
-        title: "Review Created.",
-        description: "successfully created new review",
+        description: "successfully replied",
         status: "success",
         duration: 1500,
         isClosable: true,
@@ -56,12 +69,13 @@ export default function ReplyForm({ restuarantId }) {
     } catch (error) {
       console.log(error);
       toast({
-        title: "Failed to Create Review",
+        title: "Failed to Create Reply",
         description: "Sorry something went wrong, please try again",
         status: "error",
         duration: 1500,
         isClosable: true,
       });
+      setLoading(false);
     }
 
     reset();
@@ -69,7 +83,7 @@ export default function ReplyForm({ restuarantId }) {
 
   const onSubmit = (data) => {
     if (data) {
-      createView(data);
+      createReply(data);
     }
   };
 
@@ -90,7 +104,7 @@ export default function ReplyForm({ restuarantId }) {
               {errors?.reply?.message}
             </chakra.small>
           </FormControl>
-          <Flex justify="space-between" w="100%">
+          <Flex justify="space-between" w="100%" align="center">
             <Text>
               Signed in as <chakra.strong>Mukhtar</chakra.strong>
             </Text>
@@ -98,11 +112,15 @@ export default function ReplyForm({ restuarantId }) {
               alignSelf="flex-end"
               size="xs"
               w="100px"
+              type="submit"
               variant="outline"
               disabled={loading}
               colorScheme="green"
             >
               {loading ? <Spinner size="sm" color="red.500" /> : "Reply"}
+            </Button>
+            <Button onClick={() => setToggle(!toggle)} size="xs">
+              Dismiss
             </Button>
           </Flex>
         </VStack>

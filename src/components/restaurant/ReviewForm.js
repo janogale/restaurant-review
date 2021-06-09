@@ -106,6 +106,7 @@ export default function ReviewCard({ restuarantId }) {
             <FormLabel>Comment</FormLabel>
             <Textarea
               isInvalid={errors?.comment}
+              placeholder="Add review to this Restuarant"
               autoComplete="text"
               {...register("comment", {
                 required: "comment is required",

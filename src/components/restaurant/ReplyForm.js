@@ -67,7 +67,6 @@ export default function ReplyForm({ restuarantId, reviewId }) {
       });
       setLoading(false);
     } catch (error) {
-      console.log(error);
       toast({
         title: "Failed to Create Reply",
         description: "Sorry something went wrong, please try again",

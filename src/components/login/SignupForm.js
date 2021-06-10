@@ -31,8 +31,12 @@ export const SignUpForm = (props) => {
     try {
       // delay operation in ms to show spinner
       await delay(1500);
-      const response = await axios.post("/api/auth/signup", {
-        ...data,
+      const response = await axios({
+        method: "POST",
+        url: "/api/auth/signup",
+        data: {
+          ...data,
+        },
       });
 
       // show success message

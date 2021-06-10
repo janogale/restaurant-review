@@ -10,8 +10,8 @@ import {
 import * as React from "react";
 import { Card } from "./Card";
 import { DividerWithText } from "./DividerWithText";
-import { LoginFormAdmin } from "./SinginForm";
-import { LoginFormEmployee } from "./SignupForm";
+import { SignInForm } from "./SinginForm";
+import { SignUpForm } from "./SignupForm";
 
 const LoginComponent = () => {
   const { colorMode } = useColorMode();
@@ -38,10 +38,10 @@ const LoginComponent = () => {
 
             <TabPanels>
               <TabPanel>
-                <LoginFormAdmin />
+                <SignInForm />
               </TabPanel>
               <TabPanel>
-                <LoginFormEmployee />
+                <SignUpForm />
               </TabPanel>
             </TabPanels>
           </Tabs>

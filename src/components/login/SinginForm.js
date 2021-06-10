@@ -13,12 +13,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { delay } from "../../utils";
-
 import { PasswordField } from "./PasswordField";
+import { AppState } from "../../context/index";
 
-export const LoginFormAdmin = (props) => {
+export const SignInForm = (props) => {
   const router = useRouter();
   const toast = useToast();
+
+  // global state
+  const { dispatch } = AppState();
 
   const {
     register,
@@ -34,8 +37,25 @@ export const LoginFormAdmin = (props) => {
     try {
       // delay operation in ms to show spinner
       await delay(1500);
-      const response = await axios.post("http://localhost:5000/api/signin", {
-        ...data,
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signin",
+        {
+          ...data,
+        }
+      );
+
+      const { token, claims } = response?.data;
+
+      // save to data to global state
+      dispatch({
+        type: "login",
+        payload: {
+          acessToken: token,
+          isLoggedIn: true,
+          email: claims?.email || "",
+          isAdmin: claims?.admin || false,
+          isOwner: claims?.owner || false,
+        },
       });
 
       // show success message
@@ -46,22 +66,15 @@ export const LoginFormAdmin = (props) => {
       });
       setLoading(false);
 
-      // store admin token into state
-
-      // save token to sessionStorage
-      window.sessionStorage.setItem("admintoken", response?.data?.token);
-
-      // navigate to dashboard if login successfull
-      router.push("/dashboard");
+      // navigate to home if login successfull
+      // router.push("/home");
     } catch (err) {
-      console.log(err);
-
       // show message
       toast({
         title: "Login Failed",
         description: "Username or password is incorrect",
         status: "error",
-        duration: 2000,
+        duration: 3000,
       });
       setLoading(false);
     }
@@ -75,24 +88,23 @@ export const LoginFormAdmin = (props) => {
     <chakra.form onSubmit={handleSubmit(onSubmit)} {...props}>
       <Stack spacing="6">
         <FormControl id="username">
-          <FormLabel>Username</FormLabel>
+          <FormLabel>Email</FormLabel>
           <Input
-            isInvalid={errors?.username}
+            type="email"
+            isInvalid={errors?.email}
             autoComplete="text"
-            {...register("username", {
-              required: "Username is required",
+            {...register("email", {
+              required: "Email is required",
               minLength: {
                 value: 4,
                 message: "Username should be at lease 4 characters",
               },
             })}
           />
-          <chakra.small color="red.600">
-            {errors?.username?.message}
-          </chakra.small>
+          <chakra.small color="red.600">{errors?.email?.message}</chakra.small>
         </FormControl>
         <PasswordField
-          id="adminPassword"
+          id="password"
           {...register("password", { required: "password is required" })}
         />
         <Button

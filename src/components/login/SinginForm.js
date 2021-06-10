@@ -88,9 +88,10 @@ export const SignInForm = (props) => {
     <chakra.form onSubmit={handleSubmit(onSubmit)} {...props}>
       <Stack spacing="6">
         <FormControl id="username">
-          <FormLabel>Email</FormLabel>
+          <FormLabel>Your Email</FormLabel>
           <Input
             type="email"
+            placeholder="Type email"
             isInvalid={errors?.email}
             autoComplete="text"
             {...register("email", {
@@ -105,16 +106,23 @@ export const SignInForm = (props) => {
         </FormControl>
         <PasswordField
           id="password"
-          {...register("password", { required: "password is required" })}
+          {...register("password", {
+            required: "password is required",
+            minLength: {
+              value: 4,
+              message: "password should be at lease 4 characters",
+            },
+          })}
         />
+        <chakra.small color="red.600">{errors?.password?.message}</chakra.small>
         <Button
           type="submit"
-          colorScheme="blue"
+          colorScheme="green"
           size="lg"
           fontSize="md"
           disabled={loading}
         >
-          {loading ? <Spinner size="md" color="red.500" /> : "Sign in"}
+          {loading ? <Spinner size="md" color="gray.100" /> : "Sign in"}
         </Button>
       </Stack>
     </chakra.form>

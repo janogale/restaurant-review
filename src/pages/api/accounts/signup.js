@@ -22,8 +22,12 @@ export default async (req, res) => {
     await db.collection("users").doc(user.uid).set({
       uid: user.uid,
       email: user.email,
-      role: "regular",
     });
+
+    // add custom claims
+    await admin
+      .auth()
+      .setCustomUserClaims(user.uid, { admin: false, owner: false });
 
     res.status(200).json(user);
   } catch (error) {

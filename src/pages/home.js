@@ -1,9 +1,9 @@
 import Layout from "../components/Layout";
-import Login from "../components/login";
+import RestaurantList from "../components/restaurant";
 
 const Index = () => (
   <Layout>
-    <Login />
+    <RestaurantList />
   </Layout>
 );
 

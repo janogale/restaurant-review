@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import {
+  chakra,
   Flex,
   Link,
   Icon,
@@ -17,7 +18,14 @@ import { BiUserCircle } from "react-icons/bi";
 
 export default function Layout() {
   return (
-    <HStack justify="space-between" bg="gray.200" width="100%" px={8} py={3}>
+    <HStack
+      justify="space-between"
+      bg="gray.200"
+      width="100%"
+      px={8}
+      py={3}
+      pos="relative"
+    >
       <Flex align="center">
         <Icon as={MdRateReview} w={8} h={8} color="green.600" />
         <Link
@@ -31,9 +39,8 @@ export default function Layout() {
           Restaurant Review App
         </Link>
       </Flex>
-      <Flex align="center">
-        <AccountsModal />
-      </Flex>
+
+      <AccountsModal />
     </HStack>
   );
 }
@@ -49,7 +56,7 @@ function AccountsModal() {
         as={Button}
         rightIcon={<BiUserCircle />}
       >
-        Accounts
+        <chakra.span pr={["33px", "5px", null]}>Accounts</chakra.span>
       </MenuButton>
       <MenuList>
         <MenuItem>Profile</MenuItem>

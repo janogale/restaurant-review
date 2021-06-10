@@ -50,7 +50,7 @@ export const SignInForm = (props) => {
       dispatch({
         type: "login",
         payload: {
-          acessToken: token,
+          accessToken: token,
           isLoggedIn: true,
           email: claims?.email || "",
           isAdmin: claims?.admin || false,
@@ -67,7 +67,7 @@ export const SignInForm = (props) => {
       setLoading(false);
 
       // navigate to home if login successfull
-      // router.push("/home");
+      router.push("/home");
     } catch (err) {
       // show message
       toast({

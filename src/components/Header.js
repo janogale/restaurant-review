@@ -10,11 +10,12 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   Button,
 } from "@chakra-ui/react";
 import { MdRateReview } from "react-icons/md";
 import { BiUserCircle } from "react-icons/bi";
+
+import { AppState } from "../context";
 
 export default function Layout() {
   return (
@@ -47,6 +48,7 @@ export default function Layout() {
 
 function AccountsModal() {
   const router = useRouter();
+  const { state, dispatch } = AppState();
   return (
     <Menu>
       <MenuButton
@@ -56,14 +58,26 @@ function AccountsModal() {
         as={Button}
         rightIcon={<BiUserCircle />}
       >
-        <chakra.span pr={["33px", "5px", null]}>Accounts</chakra.span>
+        <chakra.span pr={["33px", "5px", null]}>
+          {state?.isLoggedIn ? state?.email : "Accounts"}
+        </chakra.span>
       </MenuButton>
       <MenuList>
-        <MenuItem>Profile</MenuItem>
-        <MenuDivider />
-        <MenuItem onClick={() => router.push("/login")}>Sign in</MenuItem>
-        <MenuItem onClick={() => router.push("/login")}>Sign up</MenuItem>
-        <MenuItem onClick={() => router.push("/login")}>Logout</MenuItem>
+        {state?.isLoggedIn ? (
+          <MenuItem
+            onClick={() => {
+              dispatch({ type: "logout" });
+              router.push("/");
+            }}
+          >
+            Logout
+          </MenuItem>
+        ) : (
+          <>
+            <MenuItem onClick={() => router.push("/")}>Sign in</MenuItem>
+            <MenuItem onClick={() => router.push("/")}>Sign up</MenuItem>
+          </>
+        )}
       </MenuList>
     </Menu>
   );

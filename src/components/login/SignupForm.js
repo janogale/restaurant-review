@@ -31,12 +31,9 @@ export const SignUpForm = (props) => {
     try {
       // delay operation in ms to show spinner
       await delay(1500);
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
-        {
-          ...data,
-        }
-      );
+      const response = await axios.post("/api/auth/signup", {
+        ...data,
+      });
 
       // show success message
       toast({

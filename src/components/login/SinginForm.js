@@ -37,12 +37,9 @@ export const SignInForm = (props) => {
     try {
       // delay operation in ms to show spinner
       await delay(1500);
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/signin",
-        {
-          ...data,
-        }
-      );
+      const response = await axios.post("/api/auth/signin", {
+        ...data,
+      });
 
       const { token, claims } = response?.data;
 

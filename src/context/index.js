@@ -39,7 +39,6 @@ const reducer = (state, action) => {
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     appName: "Restuarant Review",
-    token: null,
     isAdmin: false,
     isLoggedIn: false,
   });

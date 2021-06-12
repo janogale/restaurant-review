@@ -5,7 +5,7 @@ const db = admin.firestore();
 
 // eslint-disable-next-line consistent-return
 export default async (req, res) => {
-  const { password, email } = req.body;
+  const { password, email, fullName } = req.body;
 
   if (!firebase)
     return res.status(500).json({ message: "Firebase is undefined" });
@@ -22,6 +22,7 @@ export default async (req, res) => {
     await db.collection("users").doc(user.uid).set({
       uid: user.uid,
       email: user.email,
+      fullName,
     });
 
     // add custom claims

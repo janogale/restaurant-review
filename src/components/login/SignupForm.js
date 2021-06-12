@@ -69,6 +69,24 @@ export const SignUpForm = (props) => {
   return (
     <chakra.form onSubmit={handleSubmit(onSubmit)} {...props}>
       <Stack spacing="6">
+        <FormControl id="fullName">
+          <FormLabel>Full Name</FormLabel>
+          <Input
+            placeholder="Type your full name"
+            isInvalid={errors?.email}
+            autoComplete="text"
+            {...register("fullName", {
+              required: "fullname is required",
+              minLength: {
+                value: 6,
+                message: "Full Name should be at lease 6 characters",
+              },
+            })}
+          />
+          <chakra.small color="red.600">
+            {errors?.fullName?.message}
+          </chakra.small>
+        </FormControl>
         <FormControl id="email">
           <FormLabel>Email Address</FormLabel>
           <Input

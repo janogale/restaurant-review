@@ -37,7 +37,7 @@ export default function Layout() {
           bgGradient="linear(to-l, #7928CA, #FF0080)"
           bgClip="text"
         >
-          Restaurant Review App
+          Restaurant Review
         </Link>
       </Flex>
 

@@ -20,11 +20,16 @@ export default async (req, res) => {
     // get user claims
     const tokenClaims = await firebase.auth().currentUser.getIdTokenResult();
 
+    // only fetch claims and token to send it to frontend
+    const { claims, token } = tokenClaims;
+
+    const userData = { claims, token };
+
     if (doc.exists) {
-      // console.log(doc.data());
+      userData.details = doc.data();
     }
 
-    res.status(200).json(tokenClaims);
+    res.status(200).json(userData);
   } catch (error) {
     res.status(400).json(error);
   }

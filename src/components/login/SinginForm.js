@@ -44,7 +44,8 @@ export const SignInForm = (props) => {
           ...data,
         },
       });
-      const { token, claims } = response?.data;
+
+      const { details, claims, token } = response?.data;
 
       // save to data to global state
       dispatch({
@@ -52,9 +53,11 @@ export const SignInForm = (props) => {
         payload: {
           accessToken: token,
           isLoggedIn: true,
-          email: claims?.email || "",
           isAdmin: claims?.admin || false,
           isOwner: claims?.owner || false,
+          email: details?.email,
+          uid: details?.uid,
+          fullName: details.fullName,
         },
       });
 

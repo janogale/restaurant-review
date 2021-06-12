@@ -9,7 +9,6 @@ export const AppContent = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case "login": {
-      console.log(action.payload);
       window.sessionStorage.setItem("accessToken", action.payload.accessToken);
       const newState = { ...state, ...action.payload };
       return newState;

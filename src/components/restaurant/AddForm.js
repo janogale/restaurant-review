@@ -15,10 +15,16 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
+import { AppState } from "../../context";
 import Input from "../shared/Input";
+
+// global state.
 
 export default function RestaurantForm({ onClose }) {
   const [loading, setLoading] = React.useState(false);
+
+  // state
+  const { state } = AppState();
 
   const toast = useToast();
 
@@ -39,9 +45,10 @@ export default function RestaurantForm({ onClose }) {
         url: "/api/restuarants",
         data: {
           ...data,
+          ownerId: state?.uid,
           createdAt: new Date().toISOString(),
         },
-        // headers: { "x-access-token": token },
+        headers: { Authorization: `Bearer ${state?.accessToken}` },
       });
 
       reset();
@@ -65,7 +72,7 @@ export default function RestaurantForm({ onClose }) {
         isClosable: true,
       });
     }
-
+    setLoading(false);
     reset();
   }
 
@@ -87,18 +94,21 @@ export default function RestaurantForm({ onClose }) {
 
           <Input {...register("contact")} name="contact" />
           <Input {...register("address")} name="address" />
-          <Input {...register("city")} name="city" />
+          <Input
+            {...register("city", { required: "city is required" })}
+            error={errors?.city?.message}
+          />
         </SimpleGrid>
         <FormControl id="description">
           <FormLabel>Description</FormLabel>
           <Textarea
             isInvalid={errors?.name?.description}
             {...register("description", {
-              required: "description is required",
+              required: "Description is required",
             })}
             placeholder="Description of the Restaurant"
           />
-          {errors?.name?.description && (
+          {errors?.description?.message && (
             <FormHelperText color="red">
               {errors?.description?.message}
             </FormHelperText>

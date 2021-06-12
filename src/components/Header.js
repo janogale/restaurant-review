@@ -58,8 +58,8 @@ function AccountsModal() {
         as={Button}
         rightIcon={<BiUserCircle />}
       >
-        <chakra.span pr={["33px", "5px", null]}>
-          {state?.isLoggedIn ? state?.email : "Accounts"}
+        <chakra.span pr={["15px", "5px", null]}>
+          {state?.isLoggedIn ? state?.fullName || state?.email : "Accounts"}
         </chakra.span>
       </MenuButton>
       <MenuList>

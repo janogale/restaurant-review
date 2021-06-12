@@ -1,7 +1,8 @@
-// import controllers from root controllers folder.
+/* eslint-disable import/no-unresolved */
 
-// eslint-disable-next-line import/no-unresolved
+// import controllers from root controllers folder.
 import { createReview, deleteReview, updateReview } from "controllers/";
+import withAuth from "middlewares/withAuth";
 
 export const config = {
   api: {
@@ -9,7 +10,7 @@ export const config = {
   },
 };
 
-export default (req, res) => {
+const reviewHandler = (req, res) => {
   // get http method
   const { method } = req;
 
@@ -28,3 +29,5 @@ export default (req, res) => {
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };
+
+export default withAuth(reviewHandler);

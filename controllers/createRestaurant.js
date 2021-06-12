@@ -1,8 +1,5 @@
 import admin from "../lib/firebase-admin";
 
-// authentication middleware
-import withAuth from "../middlewares/withAuth";
-
 const db = admin.firestore();
 
 async function createRestaurant(req, res) {
@@ -16,7 +13,6 @@ async function createRestaurant(req, res) {
     city = "",
   } = req.body;
 
-  console.log(req.body);
   try {
     const colRef = db.collection("restaurants");
 
@@ -38,4 +34,4 @@ async function createRestaurant(req, res) {
   }
 }
 
-export default withAuth(createRestaurant);
+export default createRestaurant;

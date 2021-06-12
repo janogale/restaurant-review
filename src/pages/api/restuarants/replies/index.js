@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 // import controllers from root controllers folder.
 
-// eslint-disable-next-line import/no-unresolved
 import { addReply, deleteReply } from "controllers/";
+import withAuth from "middlewares/withAuth";
 
 export const config = {
   api: {
@@ -9,7 +10,7 @@ export const config = {
   },
 };
 
-export default (req, res) => {
+const replyHandler = (req, res) => {
   // get http method
   const { method } = req;
 
@@ -25,3 +26,5 @@ export default (req, res) => {
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };
+
+export default withAuth(replyHandler);

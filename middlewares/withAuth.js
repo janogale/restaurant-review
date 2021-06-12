@@ -20,7 +20,6 @@ const withAuth = (handler) => async (req, res) => {
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,
-      // role: decodedToken.role,
       email: decodedToken.email,
     };
     return handler(req, res);

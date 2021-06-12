@@ -3,7 +3,8 @@ import admin from "../lib/firebase-admin";
 const db = admin.firestore();
 
 export default async function createRestaurant(req, res) {
-  const { comment, restuarantId, authorId, rating, createdAt } = req.body;
+  const { comment, restuarantId, authorId, author, rating, createdAt } =
+    req.body;
 
   // if there is no id reject call
   if (!restuarantId || !authorId) {
@@ -39,6 +40,7 @@ export default async function createRestaurant(req, res) {
       authorId,
       rating,
       createdAt,
+      author,
     });
 
     return res.status(201).json(docRef.id);

@@ -22,6 +22,9 @@ import {
 
 import { DeleteIcon } from "@chakra-ui/icons";
 
+// global state
+import { AppState } from "../../context";
+
 export default function Reply({ review }) {
   const { reply, restuarantId, id: reviewId } = review;
 
@@ -64,6 +67,8 @@ function DeleteReplyModal({ reviewId, restuarantId }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = React.useState(false);
 
+  const { state } = AppState();
+
   const toast = useToast();
 
   // delete single employee by Id
@@ -77,8 +82,9 @@ function DeleteReplyModal({ reviewId, restuarantId }) {
         data: {
           reviewId,
           restuarantId,
+          uid: state?.uid,
         },
-        // headers: { "x-access-token": token },
+        headers: { Authorization: `Bearer ${state?.accessToken}` },
       });
 
       toast({

@@ -3,7 +3,7 @@ import admin from "../lib/firebase-admin";
 const db = admin.firestore();
 
 export default async function addReplyToReview(req, res) {
-  const { reply, createdAt, restuarantId, author, reviewId } = req.body;
+  const { reply, createdAt, restuarantId, author, ui, reviewId } = req.body;
 
   // if there is no id reject call
   if (!restuarantId || !reviewId) {
@@ -26,6 +26,7 @@ export default async function addReplyToReview(req, res) {
       reply: {
         reply,
         author,
+        ui,
         createdAt,
       },
     });

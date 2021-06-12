@@ -28,12 +28,19 @@ import { FaStar } from "react-icons/fa";
 import ReplyForm from "./ReplyForm";
 import Reply from "./ReplyCard";
 
+// Global state
+import { AppState } from "../../context";
 // data fetcher
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (url, token) =>
+  axios
+    .get(url, { headers: { Authorization: `Bearer ${token}` } })
+    .then((res) => res.data);
 
 export default function ReviewCardContainer({ restuarantId }) {
+  const { state } = AppState();
+
   const { data, error } = useSWR(
-    `/api/restuarants/reviews/${restuarantId}`,
+    [`/api/restuarants/reviews/${restuarantId}`, state?.accessToken],
     fetcher,
     {
       refreshInterval: 1000,
@@ -57,12 +64,7 @@ export default function ReviewCardContainer({ restuarantId }) {
 
 function ReviewCard({ review = {}, restuarantId }) {
   const [flag, setFlag] = useBoolean();
-  const {
-    fullname = "user coming",
-    rating = 0,
-    comment = "",
-    createdAt = "",
-  } = review;
+  const { author = "", rating = null, comment = "", createdAt = "" } = review;
 
   return (
     <HStack
@@ -81,11 +83,11 @@ function ReviewCard({ review = {}, restuarantId }) {
       onMouseLeave={setFlag.off}
     >
       <Box alignSelf="start">
-        <Avatar name={fullname} src="#" size="sm" />
+        <Avatar name={author} src="#" size="sm" />
       </Box>
       <VStack w="100%" align="start">
         <Text fontSize="md" fontWeight="bolder">
-          {fullname}
+          {author}
         </Text>
         <Flex>
           <Box>
@@ -125,6 +127,8 @@ function DeleteReviewModal({ reviewId, restuarantId, rating }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = React.useState(false);
 
+  const { state } = AppState();
+
   const toast = useToast();
 
   // delete single employee by Id
@@ -139,8 +143,9 @@ function DeleteReviewModal({ reviewId, restuarantId, rating }) {
           reviewId,
           restuarantId,
           rating,
+          uid: state?.uid,
         },
-        // headers: { "x-access-token": token },
+        headers: { Authorization: `Bearer ${state?.accessToken}` },
       });
 
       toast({

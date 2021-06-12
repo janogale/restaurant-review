@@ -16,7 +16,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+// global state
+import { AppState } from "../../context";
+
 export default function ReplyForm({ restuarantId, reviewId }) {
+  const { state } = AppState();
+
   const [loading, setLoading] = React.useState(false);
   const [toggle, setToggle] = React.useState(true);
   const toast = useToast();
@@ -51,11 +56,12 @@ export default function ReplyForm({ restuarantId, reviewId }) {
         data: {
           ...data,
           restuarantId,
-          author: "coming soon",
+          ui: state?.uid,
+          author: state?.fullName || state?.email,
           reviewId,
           createdAt: `${new Date().toDateString()} ${new Date().toLocaleTimeString()}`,
         },
-        // headers: { "x-access-token": token },
+        headers: { Authorization: `Bearer ${state?.accessToken}` },
       });
 
       reset();
@@ -104,8 +110,8 @@ export default function ReplyForm({ restuarantId, reviewId }) {
             </chakra.small>
           </FormControl>
           <Flex justify="space-between" w="100%" align="center">
-            <Text>
-              Signed in as <chakra.strong>Mukhtar</chakra.strong>
+            <Text fontSize="xs">
+              Signed in as <chakra.strong>{state?.fullName}</chakra.strong>
             </Text>
             <Button
               alignSelf="flex-end"

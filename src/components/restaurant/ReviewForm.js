@@ -17,9 +17,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
+// global state
+import { AppState } from "../../context";
+
 export default function ReviewCard({ restuarantId }) {
   const [loading, setLoading] = React.useState(false);
   const [rating, setRating] = React.useState(0);
+
+  const { state } = AppState();
 
   const toast = useToast();
 
@@ -41,12 +46,12 @@ export default function ReviewCard({ restuarantId }) {
         data: {
           ...data,
           restuarantId,
-          authorId: "coming soon",
           rating,
-          author: "Mukhtar Mahamed",
+          author: state?.fullName || state?.email,
+          authorId: state?.uid,
           createdAt: `${new Date().toDateString()} ${new Date().toLocaleTimeString()}`,
         },
-        // headers: { "x-access-token": token },
+        headers: { Authorization: `Bearer ${state?.accessToken}` },
       });
 
       reset();
@@ -66,6 +71,7 @@ export default function ReviewCard({ restuarantId }) {
         duration: 1500,
         isClosable: true,
       });
+      setLoading(false);
     }
 
     reset();

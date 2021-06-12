@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { Flex, Button, Text, Divider } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
@@ -7,15 +8,25 @@ import Skeleton from "../../components/restaurant/DetailsSkeleton";
 
 import Detailedview from "../../components/restaurant/Detailedview";
 
+// global state
+import { AppState } from "../../context";
+
 // data fetcher
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (url, token) =>
+  axios
+    .get(url, { headers: { Authorization: `Bearer ${token}` } })
+    .then((res) => res.data);
 
 export default function RestuarantDetailedView() {
   const router = useRouter();
+  const { state } = AppState();
 
   const { resId } = router.query;
 
-  const { data, error } = useSWR(`/api/restuarants/${resId}`, fetcher);
+  const { data, error } = useSWR(
+    [`/api/restuarants/${resId}`, state?.accessToken],
+    fetcher
+  );
 
   if (error) {
     return <Flex justify="center">failed to load data, Please try again!</Flex>;

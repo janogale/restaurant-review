@@ -53,3 +53,7 @@ yarn install
 to start the app, run the following command
 
 - Run `yarn dev` go to [localhost:3000](http:localhost:3000)
+
+### Deployed on `Vercel`
+
+Please Click this link to see the deployed App [Restuarant Review App](https://restuarantreview.vercel.app/)

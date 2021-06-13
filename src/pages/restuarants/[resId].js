@@ -1,3 +1,4 @@
+import React from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -27,6 +28,13 @@ export default function RestuarantDetailedView() {
     [`/api/restuarants/${resId}`, state?.accessToken],
     fetcher
   );
+
+  React.useEffect(() => {
+    // if not logged in redirect to login page
+    if (!state?.isLoggedIn) {
+      router.push("/");
+    }
+  });
 
   if (error) {
     return <Flex justify="center">failed to load data, Please try again!</Flex>;

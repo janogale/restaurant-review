@@ -11,6 +11,7 @@ const Index = () => {
   const router = useRouter();
   const { state } = AppState();
 
+
   React.useEffect(() => {
     // if not logged in redirect to login page
     if (!state?.isLoggedIn) {

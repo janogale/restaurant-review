@@ -32,6 +32,8 @@ async function createRestaurant(req, res) {
       city,
       address,
       ownerId,
+      rating: 0, // initial 
+      ratingCount: 0 // initial
     });
 
     // get users custom claims

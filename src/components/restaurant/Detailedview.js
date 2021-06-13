@@ -60,7 +60,11 @@ export default function DetailedView({ restuarant = {} }) {
             <Property label="City" value={restuarant.city} />
             <Property label="Contact" value={restuarant.contact} />
             <Property
-              label="Rating"
+              label="Total Reviews"
+              value={restuarant.ratingCount}
+            />
+            <Property
+              label="Average Rating"
               value={
                 <AverageRating
                   ratingCount={restuarant.ratingCount}

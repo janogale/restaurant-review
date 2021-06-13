@@ -11,7 +11,7 @@ const {isOwner, isAdmin, uid} = res?.locals
 
 // if user is only owner, show his own restuarants
     if(isOwner && !isAdmin){
-      colRef = db.collection("restaurants").where('ownerId', '==', uid).orderBy("rating")
+      colRef = db.collection("restaurants").where('ownerId', '==', uid).orderBy("rating", "desc")
     }
     
     const snapShot = await colRef.get();

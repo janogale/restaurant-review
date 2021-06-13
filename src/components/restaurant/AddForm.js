@@ -38,17 +38,20 @@ export default function RestaurantForm({ onClose }) {
   // create new restuarant
   async function createRestaurant(data) {
     setLoading(true);
-    // const token = state.token || window.sessionStorage.getItem("userToken");
+
+    const token = state?.accessToken || window.sessionStorage.getItem("accessToken");
+    const uid = state?.uid || window.sessionStorage.getItem("uid");
+
     try {
       await axios({
         method: "POST",
         url: "/api/restuarants",
         data: {
           ...data,
-          ownerId: state?.uid,
+          ownerId: uid,
           createdAt: new Date().toISOString(),
         },
-        headers: { Authorization: `Bearer ${state?.accessToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       reset();

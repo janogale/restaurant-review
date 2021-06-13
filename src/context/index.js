@@ -9,8 +9,12 @@ export const AppContent = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case "login": {
+
+      // store login details to session
       window.sessionStorage.setItem("accessToken", action.payload.accessToken);
       window.sessionStorage.setItem("fullName", action.payload.fullName);
+      window.sessionStorage.setItem("uid", action.payload.uid);
+
       const newState = { ...state, ...action.payload };
       return newState;
     }
@@ -18,6 +22,8 @@ const reducer = (state, action) => {
       // clear session data
       window.sessionStorage.removeItem("accessToken");
       window.sessionStorage.removeItem("fullName");
+      window.sessionStorage.removeItem("uid");
+
       const newState = {
         ...state,
         accessToken: null,
@@ -50,6 +56,7 @@ const AppContextProvider = ({ children }) => {
   React.useEffect(() => {
     const accessToken = window.sessionStorage.getItem("accessToken");
     const displayName = window.sessionStorage.getItem("fullName");
+    const uid = window.sessionStorage.getItem("uid");
 
     if (accessToken && displayName) {
       dispatch({
@@ -58,6 +65,7 @@ const AppContextProvider = ({ children }) => {
           accessToken: accessToken,
           isLoggedIn: true,
           fullName: displayName,
+          uid: uid,
         },
       });
     }

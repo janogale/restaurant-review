@@ -13,6 +13,14 @@ async function createRestaurant(req, res) {
     city = "",
   } = req.body;
 
+
+  // if there is no id reject call
+  if (!ownerId || !name) {
+    return res
+      .status(400)
+      .json({ error: "resturant name and owner id are required" });
+  }
+
   try {
     const colRef = db.collection("restaurants");
 

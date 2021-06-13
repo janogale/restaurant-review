@@ -2,6 +2,9 @@
 // import controllers from root controllers folder.
 
 import { deleteReview, updateReview, getReviews } from "controllers/";
+
+// middlewares
+import isAuthorized from "middlewares/isAuthorized";
 import withAuth from "middlewares/withAuth";
 
 export const config = {
@@ -30,4 +33,4 @@ const reviewHandler = (req, res) => {
   }
 };
 
-export default withAuth(reviewHandler);
+export default withAuth(isAuthorized(reviewHandler));

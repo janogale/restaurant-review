@@ -2,7 +2,12 @@
 // import controllers from root controllers folder.
 
 import { addReply, deleteReply } from "controllers/";
+
+// authentication middle ware
 import withAuth from "middlewares/withAuth";
+
+// authorization middleware
+import isAuthorized from "middlewares/isAuthorized";
 
 export const config = {
   api: {
@@ -27,4 +32,4 @@ const replyHandler = (req, res) => {
   }
 };
 
-export default withAuth(replyHandler);
+export default withAuth(isAuthorized(replyHandler));

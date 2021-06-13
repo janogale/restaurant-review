@@ -32,16 +32,25 @@ import { CardHeader } from "../shared/CardHeader";
 import ReviewCardContainer from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
 import AverageRating from "./AverageRating";
+import { AppState } from "../../context";
+
+
 
 export default function DetailedView({ restuarant = {} }) {
+
+  const { state } = AppState()
+  const { isAdmin, isOwner } = state;
+
   return (
     <VStack align="start">
       <Flex width="100%" mb={4} justify="space-between" align="center">
         <Card mx="auto" boxShadow="xl" width="100%">
-          <CardHeader
-            title={`${restuarant.name}`}
-            action={<Actions id={restuarant.id} />}
-          />
+          {isAdmin || isOwner ? (
+            <CardHeader
+              title={`${restuarant.name}`}
+              action={<Actions id={restuarant.id} />}
+            />
+          ) : null}
           <Box>
             <Property label="Description" value={`${restuarant.description}`} />
             <Property

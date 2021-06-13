@@ -22,12 +22,12 @@ export default async function createRestaurant(req, res) {
     // get restaurant doc
     const resDocRef = db.collection("restaurants").doc(restuarantId);
 
-    // increment rating
+    // increment total rating
     await resDocRef.update({
       rating: admin.firestore.FieldValue.increment(rating),
     });
 
-    // increment rating
+    // increment rating count - how many users rated
     await resDocRef.update({
       ratingCount: admin.firestore.FieldValue.increment(1),
     });

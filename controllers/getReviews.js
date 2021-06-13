@@ -8,7 +8,7 @@ export default async function getReviews(req, res) {
     const colRef = db
       .collection("restaurants")
       .doc(restuarantId)
-      .collection("reviews");
+      .collection("reviews").orderBy("createdAt", "desc");
     const snapShot = await colRef.get();
 
     // return data with ID

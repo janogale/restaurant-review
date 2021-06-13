@@ -7,11 +7,11 @@ export default async function getRestaurants(req, res) {
 const {isOwner, isAdmin, uid} = res?.locals
 
   try {
-    let  colRef = db.collection("restaurants");
+    let  colRef = db.collection("restaurants").orderBy("rating", "desc");
 
 // if user is only owner, show his own restuarants
     if(isOwner && !isAdmin){
-      colRef = db.collection("restaurants").where('ownerId', '==', uid)
+      colRef = db.collection("restaurants").where('ownerId', '==', uid).orderBy("rating")
     }
     
     const snapShot = await colRef.get();

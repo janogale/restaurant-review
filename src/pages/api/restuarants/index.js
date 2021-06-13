@@ -6,6 +6,10 @@ import { createRestaurant, getRestaurants } from "controllers/";
 // authentication middleware
 import withAuth from "middlewares/withAuth";
 
+// authorization middleware
+import isAuthorized from "middlewares/isAuthorized";
+
+
 export const config = {
   api: {
     externalResolver: true,
@@ -13,7 +17,8 @@ export const config = {
 };
 
 const handler = (req, res) => {
-  // get http method
+
+ // get http method
   const { method } = req;
 
   switch (method) {
@@ -30,4 +35,4 @@ const handler = (req, res) => {
   }
 };
 
-export default withAuth(handler);
+export default withAuth(isAuthorized(handler));

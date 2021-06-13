@@ -3,8 +3,17 @@ import admin from "../lib/firebase-admin";
 const db = admin.firestore();
 
 export default async function getRestaurants(req, res) {
+
+const {isOwner, isAdmin, uid} = res?.locals
+
   try {
-    const colRef = db.collection("restaurants");
+    let  colRef = db.collection("restaurants");
+
+// if user is only owner, show his own restuarants
+    if(isOwner && !isAdmin){
+      colRef = db.collection("restaurants").where('ownerId', '==', uid)
+    }
+    
     const snapShot = await colRef.get();
 
     // return data with ID

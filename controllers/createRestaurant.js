@@ -34,6 +34,11 @@ async function createRestaurant(req, res) {
       ownerId,
     });
 
+    // add custom claims - make user owner
+    await admin
+      .auth()
+      .setCustomUserClaims(ownerId, {  owner: true });
+
     return res
       .status(201)
       .json({ message: "Created successfully", id: docRef.id });

@@ -3,13 +3,21 @@
 // eslint-disable-next-line import/no-unresolved
 import { deleteRestaurant, getRestaurant } from "controllers/";
 
+// authentication middleware
+import withAuth from "middlewares/withAuth";
+
+// authorization middleware
+import isAuthorized from "middlewares/isAuthorized";
+
 export const config = {
   api: {
     externalResolver: true,
   },
 };
 
-export default (req, res) => {
+const handler =  (req, res) => {
+
+ 
   // get http method
   const { method } = req;
 
@@ -26,3 +34,6 @@ export default (req, res) => {
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };
+
+
+export default  withAuth(isAuthorized( handler ) ) ;

@@ -17,10 +17,13 @@ const withAuth = (handler) => async (req, res) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
 
+
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,
       email: decodedToken.email,
+      isOwner: decodedToken?.owner || false,
+      isAdmin: decodedToken?.admin || false,
     };
     return handler(req, res);
   } catch (err) {

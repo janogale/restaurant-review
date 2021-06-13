@@ -107,7 +107,7 @@ function ReviewCard({ review = {}, restuarantId }) {
 
         <VStack w="100%">
           <Flex w="100%" pos="relative" mb={2}>
-            {flag && (
+            {flag &&  (isAdmin || isOwner) && (
               <DeleteReviewModal
                 reviewId={review.id}
                 restuarantId={restuarantId}

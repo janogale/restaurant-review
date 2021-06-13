@@ -30,7 +30,7 @@ export default function Reply({ review }) {
 
   const {state} = AppState();
 
-  const {isAdmin} = state;
+  const {isAdmin, isOwner} = state;
 
   const [flag, setFlag] = useBoolean();
   if (!reply) return null;
@@ -59,7 +59,7 @@ export default function Reply({ review }) {
         {reply.reply}
       </Text>
       <Flex w="100%" pos="relative" mb={2}>
-        {flag && (
+        {flag &&  (isAdmin || isOwner) && (
           <DeleteReplyModal reviewId={reviewId} restuarantId={restuarantId} />
         )}
       </Flex>

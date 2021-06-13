@@ -34,11 +34,17 @@ async function createRestaurant(req, res) {
       ownerId,
     });
 
+    // get users custom claims
+    const userRecord = await admin.auth().getUser(ownerId);
+
+    const isAdmin = userRecord.customClaims['admin']
+    console.log(isAdmin)
     // add custom claims - make user owner
     await admin
-      .auth()
-      .setCustomUserClaims(ownerId, {  owner: true });
+          .auth()
+          .setCustomUserClaims(ownerId, { owner: true, admin: isAdmin || false });
 
+          
     return res
       .status(201)
       .json({ message: "Created successfully", id: docRef.id });

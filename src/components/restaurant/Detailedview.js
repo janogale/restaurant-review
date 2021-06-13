@@ -102,6 +102,8 @@ function DeleteModal({ id }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = React.useState(false);
 
+  const { state } = AppState()
+
   const toast = useToast();
   const router = useRouter();
 
@@ -109,11 +111,15 @@ function DeleteModal({ id }) {
   async function deleteRestaurant(restuarantId) {
     setLoading(true);
     // const token = state.token || window.sessionStorage.getItem("userToken");
+
+    const token = state?.accessToken || window.sessionStorage.getItem("accessToken");
+  
+
     try {
       await axios({
         method: "DELETE",
         url: `/api/restuarants/${restuarantId}`,
-        // headers: { "x-access-token": token },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       toast({
@@ -136,6 +142,7 @@ function DeleteModal({ id }) {
         duration: 1500,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 

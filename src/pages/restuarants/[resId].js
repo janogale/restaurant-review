@@ -26,7 +26,10 @@ export default function RestuarantDetailedView() {
 
   const { data, error } = useSWR(
     [`/api/restuarants/${resId}`, state?.accessToken],
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 2000,
+    }
   );
 
   React.useEffect(() => {

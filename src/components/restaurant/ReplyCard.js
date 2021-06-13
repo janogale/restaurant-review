@@ -28,6 +28,10 @@ import { AppState } from "../../context";
 export default function Reply({ review }) {
   const { reply, restuarantId, id: reviewId } = review;
 
+  const {state} = AppState();
+
+  const {isAdmin} = state;
+
   const [flag, setFlag] = useBoolean();
   if (!reply) return null;
 
@@ -46,7 +50,7 @@ export default function Reply({ review }) {
         <Avatar name={reply?.author} src="#" size="sm" />
         <VStack spacing="0">
           <Text ml="3" fontWeight="bold">
-            {reply?.author} <Badge colorScheme="green">Admin</Badge>
+            {reply?.author} <Badge colorScheme="green">{isAdmin ? 'Admin' : 'Author'} </Badge>
           </Text>
           <Text as="small">{reply.createdAt}</Text>
         </VStack>

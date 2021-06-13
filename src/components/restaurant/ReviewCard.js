@@ -53,10 +53,10 @@ export default function ReviewCardContainer({ restuarantId }) {
 
   const ReviewCards = data
     ? data.map((review) => (
-        <Box key={review.id} w="100%">
-          <ReviewCard review={review} restuarantId={restuarantId} />
-        </Box>
-      ))
+      <Box key={review.id} w="100%">
+        <ReviewCard review={review} restuarantId={restuarantId} />
+      </Box>
+    ))
     : null;
 
   return ReviewCards;
@@ -66,7 +66,11 @@ function ReviewCard({ review = {}, restuarantId }) {
   const [flag, setFlag] = useBoolean();
   const { author = "", rating = null, comment = "", createdAt = "" } = review;
 
-  return (
+  // state
+  const { state } = AppState()
+  const { isAdmin, isOwner } = state;
+
+   return (
     <HStack
       align="center"
       w="100%"
@@ -115,7 +119,9 @@ function ReviewCard({ review = {}, restuarantId }) {
           {review.reply ? (
             <Reply review={review} />
           ) : (
-            <ReplyForm reviewId={review.id} restuarantId={restuarantId} />
+
+            (isAdmin || isOwner) ? <ReplyForm reviewId={review.id} restuarantId={restuarantId} /> : null
+
           )}
         </VStack>
       </VStack>

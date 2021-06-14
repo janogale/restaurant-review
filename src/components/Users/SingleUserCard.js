@@ -12,8 +12,9 @@ import MakeAdminModal from "./MakeAdminModal"
 
 export default function SingleUser({ user = {} }) {
 
+    if(!user) return null;
 
-    const { admin, owner } = user?.customClaims;
+    const { admin = false, owner } = user.customClaims;
 
     const roles = <Box >
         {admin && <Badge fontSize="0.6em" colorScheme="green">Admin</Badge>}

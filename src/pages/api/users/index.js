@@ -2,10 +2,10 @@
 import admin from "@/lib/firebase-admin";
 
 // authentication middleware
-// import withAuth from "middlewares/withAuth";
+import withAuth from "middlewares/withAuth";
 
 // // authorization middleware
-// import isAuthorized from "middlewares/isAuthorized";
+import isAuthorized from "middlewares/isAuthorized";
 
 
 export const config = {
@@ -38,7 +38,7 @@ const UsersHandler = (req, res) => {
     }
 };
 
-export default UsersHandler;
+export default withAuth(isAuthorized(UsersHandler));
 
 
 
@@ -47,6 +47,10 @@ export default UsersHandler;
 async function getAllUsers(req, res) {
 
     const { method } = req;
+
+   const {isAdmin} = res?.locals
+
+   if (!isAdmin) return res.status(401).send({ message: "Unauthorized, only admins can access" });
 
     if (method !== 'GET') return res.status(401).send({ message: "Method not allowed" });
 
@@ -57,8 +61,8 @@ async function getAllUsers(req, res) {
             const { email, uid, customClaims, metadata } = userRecord.toJSON()
 
             // don't add super admin user
-            if(email === 'admin@gmail.com') return acc;
-            
+            if (email === 'admin@gmail.com') return acc;
+
             acc.push({ email, uid, customClaims, ...metadata })
 
             return acc;
@@ -150,3 +154,4 @@ async function deleteUser(req, res) {
         res.status(400).json(error);
     }
 }
+

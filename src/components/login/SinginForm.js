@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { delay } from "../../utils";
-import { PasswordField } from "./PasswordField";
+import { PasswordField } from "../shared/PasswordField";
 import { AppState } from "../../context/index";
 
 export const SignInForm = (props) => {

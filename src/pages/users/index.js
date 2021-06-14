@@ -2,7 +2,7 @@ import React from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex,Heading, Text, Button } from "@chakra-ui/react";
 
 import Layout from "../../components/Layout";
 import Skeleton from "../../components/restaurant/DetailsSkeleton";
@@ -40,7 +40,13 @@ export default function Users() {
   });
 
   if (error) {
-    return <Flex justify="center">failed to load data, Please try again!</Flex>;
+    return (<Layout>
+        <Heading as="h2" fontSize="lg">Manage Users</Heading>
+      <Flex justify="center"  direction="column" justify="center" align="center" boxShadow="sm" p={6}>
+        <Button>Go Back</Button>
+        <Text>You don't have access &#x1F6D1; only admins can manage users</Text>
+      </Flex>;
+    </Layout>)
   }
 
   if (!data) {
@@ -53,7 +59,7 @@ export default function Users() {
 
   return (
     <Layout>
-    <UsersContainer users={data}/>
+      <UsersContainer users={data} />
     </Layout>
   );
 }

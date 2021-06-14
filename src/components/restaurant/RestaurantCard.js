@@ -9,6 +9,7 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react";
+import { PhoneIcon } from '@chakra-ui/icons'
 
 import { BiBuildings } from "react-icons/bi";
 import AverageRating from "./AverageRating";
@@ -41,12 +42,12 @@ export default function RestaurantCard({ restuarant: res = {} }) {
         <Text>{res.description}</Text>
         <Divider />
         <Flex justify="space-between" minW={40}>
-          <Text>{res.contact}</Text>
-          <Text>{res.contact}</Text>
+          <Text>{res.city}</Text>
+          <Text fontSize="sm" ml={3}> <PhoneIcon color="gray.400" /> {res.contact}</Text>
         </Flex>
         <Divider />
         <Flex justify="space-between" w="100%">
-          {res?.rating && (
+          {!!res?.rating && (
             <>
               <Text>
                 Total Reviews <strong>{res.ratingCount}</strong>

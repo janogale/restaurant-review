@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  Box, Flex, VStack, Heading, FormControl, FormLabel, Select
+  Box, Flex, Button, VStack, Heading, FormControl, FormLabel, Select
 } from "@chakra-ui/react";
 
 import AddRestuarant from "./AddModal";
@@ -9,10 +9,22 @@ import RestaurantCard from "./RestaurantCard";
 
 export default function RestaurantList({ restuarants = {} }) {
   const [value, setValue] = React.useState("")
+  const [data, setData] = React.useState(restuarants);
+
   const handleChange = (event) => {
 
+    if (!event?.target?.value) return;
+
     setValue(event.target.value)
-    console.log(event.target.value)
+
+    const filteredData = restuarants.filter(res => {
+
+      let average = Math.round(res.rating / res.ratingCount)
+
+      return average == event.target.value
+
+    })
+    setData(filteredData)
   }
 
   return (
@@ -26,9 +38,9 @@ export default function RestaurantList({ restuarants = {} }) {
         </Box>
       </Flex>
       {/* filter */}
-      <Flex pb={6} >
-        <FormControl id="country">
-          <FormLabel>Filter By Average Rating</FormLabel>
+      <Flex pb={6} minW="20%" align="center">
+        <FormControl id="country" >
+          <FormLabel>Filter By Rating</FormLabel>
           <Select placeholder="Rating" value={value} onChange={handleChange}>
             <option value={5}>5</option>
             <option value={4}>4</option>
@@ -37,10 +49,11 @@ export default function RestaurantList({ restuarants = {} }) {
             <option value={1}>1</option>
           </Select>
         </FormControl>
+        <Button onClick={() => setData(restuarants)} mt={3} ml={6} variant="ghost">Clear filter</Button>
       </Flex>
       <Box width="100%">
-        {restuarants?.length ? (
-          restuarants.map((restuarant) => (
+        {data?.length ? (
+          data.map((restuarant) => (
             <Box key={restuarant.id}>
               <RestaurantCard restuarant={restuarant} />
             </Box>

@@ -4,18 +4,16 @@ import {
     Tbody,
     Tr,
     Th,
-    Td,
-    Button,
-    ButtonGroup
+
 } from "@chakra-ui/react"
 
-
+import SingleUser from "./SingleUserCard"
 
 export default function UsersCard({ users }) {
 
 
     return (
-        <Table  colorScheme="blackAlpha" boxShadow="lg">
+        <Table colorScheme="blackAlpha" boxShadow="lg">
             <Thead>
                 <Tr>
                     <Th>Email</Th>
@@ -37,18 +35,3 @@ export default function UsersCard({ users }) {
 
 
 
-
-function SingleUser({ user = {} }) {
-
-    return (
-        <>
-            <Td>{user.email}</Td>
-            <Td>{(new Date(user.creationTime).toDateString())}</Td>
-            <Td>{(new Date(user.lastSignInTime).toDateString())}</Td>
-            <Td><ButtonGroup size="xs" variant="outline" spacing="6" isAttached variant="outline">
-                <Button colorScheme="green">make admin</Button>
-                <Button colorScheme="red">Delete</Button>
-            </ButtonGroup></Td>
-        </>
-    )
-}

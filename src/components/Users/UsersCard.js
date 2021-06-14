@@ -11,13 +11,13 @@ import SingleUser from "./SingleUserCard"
 
 export default function UsersCard({ users }) {
 
-
     return (
-        <Table colorScheme="blackAlpha" boxShadow="lg">
+        <Table colorScheme="blackAlpha" boxShadow="lg" width="100%">
             <Thead>
                 <Tr>
                     <Th>Email</Th>
                     <Th>Created</Th>
+                    <Th>Roles</Th>
                     <Th>Last Login</Th>
                     <Th>Actions</Th>
                 </Tr>

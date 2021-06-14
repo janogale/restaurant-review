@@ -17,7 +17,7 @@ import {
 import { AppState } from "../../context";
 
 
-export default function DeleteUserModal({ uid }) {
+export default function MakeAdminModal({ email, label = '' }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [loading, setLoading] = React.useState(false);
 
@@ -25,31 +25,33 @@ export default function DeleteUserModal({ uid }) {
 
     const toast = useToast();
 
-      // delete single user by Id
-    async function deletUser(uid) {
+    // delete single user by Id
+    async function makeAdmin(email) {
         setLoading(true);
 
         const token = state?.accessToken || window.sessionStorage.getItem("accessToken");
 
         try {
             await axios({
-                method: "DELETE",
+                method: "PUT",
                 url: `/api/users`,
                 data: {
-                    uid: uid
+                    email: email
                 },
                 headers: { Authorization: `Bearer ${token}` },
             });
 
             toast({
-                title: "User Deleted",
-                description: "successfully Deleted user",
+                title: "set user as Admin",
+                description: "successfully updated user",
                 status: "success",
                 duration: 1000,
                 isClosable: true,
                 onCloseComplete: () => {
                     onClose();
+
                 },
+
             });
             setLoading(false);
         } catch (error) {
@@ -66,12 +68,12 @@ export default function DeleteUserModal({ uid }) {
 
     return (
         <>
-            <Button onClick={onOpen} colorScheme="red">Delete</Button>
+            <Button onClick={onOpen} colorScheme="green">{label}</Button>
             <Modal isOpen={isOpen} onClose={onClose} size="xs">
                 <ModalOverlay />
                 <ModalContent fontFamily="sm">
-                    <ModalHeader color="red.600">
-                        Are you sure, you want to delete user
+                    <ModalHeader>
+                        Are you sure, you want set {email} as admin
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalFooter>
@@ -81,9 +83,9 @@ export default function DeleteUserModal({ uid }) {
                         <Button
                             variant="ghost"
                             colorScheme="red"
-                            onClick={() => deletUser(uid)}
+                            onClick={() => makeAdmin(email)}
                         >
-                            {loading ? <Spinner /> : "Delete"}
+                            {loading ? <Spinner /> : "Accept"}
                         </Button>
                     </ModalFooter>
                 </ModalContent>

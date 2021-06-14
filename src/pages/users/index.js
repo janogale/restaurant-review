@@ -37,8 +37,6 @@ export default function Users() {
     // if (!state?.isLoggedIn) {
     //   router.push("/");
     // }
-
-    console.log(data)
   });
 
   if (error) {

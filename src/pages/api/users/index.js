@@ -26,11 +26,11 @@ const UsersHandler = (req, res) => {
         case "DELETE":
             deleteUser(req, res);
             break;
-        case "POST":
-            makeAdmin(req, res);
-            break;
+        // case "POST":
+        //     makeAdmin(req, res);
+        //     break;
         case "PUT":
-            removeAdmin(req, res);
+            makeRemoveAdmin(req, res);
             break;
         default:
             res.setHeader("Allow", ["GET", "POST"]);
@@ -55,6 +55,10 @@ async function getAllUsers(req, res) {
 
         let users = listUsersResult.users.reduce((acc, userRecord) => {
             const { email, uid, customClaims, metadata } = userRecord.toJSON()
+
+            // don't add super admin user
+            if(email === 'admin@gmail.com') return acc;
+            
             acc.push({ email, uid, customClaims, ...metadata })
 
             return acc;
@@ -70,7 +74,7 @@ async function getAllUsers(req, res) {
 
 // make user admin
 
-async function makeAdmin(req, res) {
+async function makeRemoveAdmin(req, res) {
     const { email } = req.body;
 
     if (!email) return res.status(401).send({ message: "email is required" });
@@ -78,16 +82,25 @@ async function makeAdmin(req, res) {
     try {
         const userRecord = await admin.auth().getUserByEmail(email)
 
-        const { uid } = userRecord.toJSON()
-
-        // // make admin
-        await admin
-            .auth()
-            .setCustomUserClaims(uid, { admin: true, owner: true });
+        const { uid, customClaims } = userRecord.toJSON()
 
 
+        if (customClaims?.admin) {
+            // remove admin if already user is admin
+            await admin
+                .auth()
+                .setCustomUserClaims(uid, { ...customClaims, admin: false });
+        } else {
+            // // make admin
+            await admin
+                .auth()
+                .setCustomUserClaims(uid, { ...customClaims, admin: true });
+        }
 
-        res.status(200).json(userRecord.toJSON());
+        // fetch the new user records.
+        const newUserRecord = await admin.auth().getUserByEmail(email)
+
+        res.status(200).json(newUserRecord.toJSON());
     } catch (error) {
         res.status(400).json(error);
     }

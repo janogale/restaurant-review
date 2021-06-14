@@ -25,7 +25,7 @@ export default function Users() {
 
 
   const { data, error } = useSWR(
-    [`/api/auth/users`, state?.accessToken],
+    [`/api/users`, state?.accessToken],
     fetcher,
     {
       refreshInterval: 2000,

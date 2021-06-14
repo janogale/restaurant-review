@@ -7,7 +7,7 @@ import { Flex,Heading, Text, Button } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import Skeleton from "../../components/restaurant/DetailsSkeleton";
 
-import UsersContainer from "../../components/users/";
+import UsersContainer from "../../components/Users";
 
 // global state
 import { AppState } from "../../context";

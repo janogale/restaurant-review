@@ -23,8 +23,12 @@ This is an technical interview coding challenge. submitted by [Mukhtar Mahamed](
     - contains restuarants API routes
   - **src/pages/api/restuarants/reviews**
     - contains reviews API routes
-  - **src/pages/api/account**
+  - **src/pages/api/restuarants/replies**
+    - contains replies API routes
+  - **src/pages/api/auth**
     - contains authentication API routes
+  - **src/pages/api/users**
+    - contains users management API routes
 
 ### **Frontend Packages/Libraries used**
 

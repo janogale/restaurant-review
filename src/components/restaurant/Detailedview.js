@@ -45,12 +45,12 @@ export default function DetailedView({ restuarant = {} }) {
     <VStack align="start">
       <Flex width="100%" mb={4} justify="space-between" align="center">
         <Card mx="auto" boxShadow="xl" width="100%">
-          {isAdmin || isOwner ? (
-            <CardHeader
-              title={`${restuarant.name}`}
-              action={<Actions id={restuarant.id} />}
-            />
-          ) : null}
+
+          <CardHeader
+            title={`${restuarant.name}`}
+            action={isAdmin ? <Actions id={restuarant.id} /> : null}
+          />
+
           <Box>
             <Property label="Description" value={`${restuarant.description}`} />
             <Property
@@ -117,7 +117,7 @@ function DeleteModal({ id }) {
     // const token = state.token || window.sessionStorage.getItem("userToken");
 
     const token = state?.accessToken || window.sessionStorage.getItem("accessToken");
-  
+
 
     try {
       await axios({

@@ -21,6 +21,9 @@ export default function RestaurantList({ restuarants = {} }) {
 
       let average = Math.round(res.rating / res.ratingCount)
 
+      // get no review restuarants
+      if(res.rating === 0) average = 0;
+
       return average == event.target.value
 
     })
@@ -47,6 +50,7 @@ export default function RestaurantList({ restuarants = {} }) {
             <option value={3}>3</option>
             <option value={2}>2</option>
             <option value={1}>1</option>
+            <option value={0}>0</option>
           </Select>
         </FormControl>
         <Button onClick={() => setData(restuarants)} mt={3} ml={6} variant="ghost">Clear filter</Button>

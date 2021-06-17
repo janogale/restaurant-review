@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import {
   Button,
   chakra,
+  Text,
   FormControl,
   FormLabel,
   Input,
@@ -16,6 +17,7 @@ import { PasswordField } from "../shared/PasswordField";
 
 export const SignUpForm = (props) => {
   const toast = useToast();
+  const [error, setError] = React.useState(null);
 
   const {
     register,
@@ -25,19 +27,18 @@ export const SignUpForm = (props) => {
   } = useForm();
   const [loading, setLoading] = React.useState(false);
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     setLoading(true);
 
-    try {
-      // delay operation in ms to show spinner
-      await delay(1500);
-      const response = await axios({
-        method: "POST",
-        url: "/api/auth/signup",
-        data: {
-          ...data,
-        },
-      });
+
+
+    axios({
+      method: "POST",
+      url: "/api/auth/signup",
+      data: {
+        ...data,
+      },
+    }).then(response => {
 
       // show success message
       toast({
@@ -48,7 +49,8 @@ export const SignUpForm = (props) => {
         isClosable: true,
       });
       setLoading(false);
-    } catch (err) {
+    }, (err) => {
+      setError(err?.response?.data?.message)
       // show message
       toast({
         title: "Sign up Failed",
@@ -59,7 +61,7 @@ export const SignUpForm = (props) => {
       });
 
       setLoading(false);
-    }
+    })
 
     // reset form
 
@@ -68,6 +70,7 @@ export const SignUpForm = (props) => {
 
   return (
     <chakra.form onSubmit={handleSubmit(onSubmit)} {...props}>
+    <Text color="red.200">{error}</Text>
       <Stack spacing="6">
         <FormControl id="fullName">
           <FormLabel>Full Name</FormLabel>

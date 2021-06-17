@@ -7,6 +7,7 @@ import {
   chakra,
   FormControl,
   FormLabel,
+  Text,
   Input,
   Stack,
   Spinner,
@@ -30,6 +31,7 @@ export const SignInForm = (props) => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -73,6 +75,7 @@ export const SignInForm = (props) => {
       router.push("/home");
     } catch (err) {
       // show message
+      setError(err?.response?.data?.message)
       toast({
         title: "Login Failed",
         description: "Username or password is incorrect",
@@ -90,6 +93,7 @@ export const SignInForm = (props) => {
   return (
     <chakra.form onSubmit={handleSubmit(onSubmit)} {...props}>
       <Stack spacing="6">
+        <Text color="red.200">{error}</Text>
         <FormControl id="username">
           <FormLabel>Your Email</FormLabel>
           <Input

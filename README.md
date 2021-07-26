@@ -1,6 +1,9 @@
 # Restuarant Review App
 
-This is an technical interview coding challenge. submitted by [Mukhtar Mahamed](https://github.com/janogale)
+This is Fullstack SaaS Application developed by [Mukhtar Mahamed](https://github.com/janogale) for learning purpose, details of the Application is explained below.
+
+Please Click this link to see the deployed App [Restuarant Review App](https://restuarantreview.vercel.app/)
+
 
 ## Technogogies Used
 

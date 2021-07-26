@@ -2,6 +2,8 @@
 
 This is Fullstack SaaS Application developed by [Mukhtar Mahamed](https://github.com/janogale) for learning purpose, details of the Application is explained below.
 
+Please Click this link to see the deployed App [Restuarant Review App](https://restuarantreview.vercel.app/)
+
 ## Technogogies Used
 
 `Next JS` is used to develop this Full stack App, the `Next JS API` is used to communicate to the `Firebase Database`

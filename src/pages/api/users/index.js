@@ -50,7 +50,7 @@ async function getAllUsers(req, res) {
 
    const {isAdmin} = res?.locals
 
-   if (!isAdmin) return res.status(401).send({ message: "Unauthorized, only admins can access" });
+   //if (!isAdmin) return res.status(401).send({ message: "Unauthorized, only admins can access" });
 
     if (method !== 'GET') return res.status(401).send({ message: "Method not allowed" });
 
